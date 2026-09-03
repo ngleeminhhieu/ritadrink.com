@@ -4,8 +4,6 @@ export default function CountUpModule() {
   const counters = [...document.querySelectorAll("[data-count]")];
   if (!counters.length) return;
 
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
   const getParts = (counter) => {
     const stat = counter.closest(".sec-intro__stat");
     return {
@@ -58,7 +56,7 @@ export default function CountUpModule() {
     window.requestAnimationFrame(tick);
   };
 
-  if (reduceMotion || !("IntersectionObserver" in window)) {
+  if (!("IntersectionObserver" in window)) {
     counters.forEach(setFinalValue);
     return;
   }

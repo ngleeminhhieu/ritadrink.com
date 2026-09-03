@@ -1411,7 +1411,7 @@ body.sticky .hd {
   transition: transform 0.4s;
 }
 
-@media (hover: hover) {
+@media all {
 
   .hd-top__mail:hover,
   .hd-top__tel:hover {
@@ -1572,20 +1572,6 @@ body.sticky .hd {
     font-size: 1.2rem;
   }
 
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
 }
 
 /* Full-screen exhibition hero. */
@@ -1987,7 +1973,7 @@ body.sticky .hd {
   }
 }
 
-@media (hover: hover) {
+@media all {
   .cat-card__link:hover {
     color: var(--color-pri);
   }
@@ -2216,7 +2202,7 @@ body.sticky .hd {
   text-align: right;
 }
 
-@media (hover: hover) {
+@media all {
   .sec-intro__play:hover {
     border-color: var(--color-pri);
     background: var(--color-pri);
@@ -2365,7 +2351,7 @@ body.sticky .hd {
   line-height: 1.7;
 }
 
-@media (hover: hover) {
+@media all {
   .why-card:hover .why-card__media img {
     transform: scale(1.025);
   }
@@ -2402,6 +2388,222 @@ body.sticky .hd {
   .why-card__body {
     min-height: 0;
     padding: 1.8rem 1.2rem 2.4rem;
+  }
+}
+
+/* International exhibitions marquee and global presence map. */
+.sec-exhi {
+  --grid-line: rgba(51, 51, 51, 0.48);
+  --sec-gutter: clamp(2rem, 3.6vw, 11rem);
+  position: relative;
+  width: 100%;
+  margin-top: -1px;
+  border-block: 1px solid var(--grid-line);
+  background: #ffffff;
+}
+
+.sec-exhi__head {
+  padding-inline: var(--sec-gutter);
+}
+
+.sec-exhi__logos {
+  direction: ltr;
+  margin-top: var(--section-gap);
+  margin-bottom: clamp(3rem, 3.57vw, 5rem);
+  overflow: hidden;
+}
+
+.sec-exhi__logos-track {
+  --logo-gap: 5rem;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: exhibitionLogosScroll 25s linear infinite;
+  will-change: transform;
+}
+
+.sec-exhi__logos:hover .sec-exhi__logos-track,
+.sec-exhi__logos:focus .sec-exhi__logos-track {
+  animation-play-state: paused;
+}
+
+.sec-exhi__logos-group {
+  display: flex;
+  align-items: center;
+  gap: var(--logo-gap);
+  padding-inline-end: var(--logo-gap);
+  flex-shrink: 0;
+}
+
+.sec-exhi__logos img {
+  width: auto;
+  height: 8rem;
+  max-width: none;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+@keyframes exhibitionLogosScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+.sec-exhi__inner {
+  width: min(calc(100% - (var(--sec-gutter) * 2)), 128rem);
+  margin-inline: auto;
+}
+
+.sec-exhi__map {
+  position: relative;
+  direction: ltr;
+}
+
+.sec-exhi__map>img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.sec-exhi__pin {
+  position: absolute;
+  z-index: 1;
+  transform: translate(-50%, -100%);
+}
+
+.sec-exhi__map.is-pending .sec-exhi__pin {
+  opacity: 0;
+  transform: translate(-50%, -280%);
+}
+
+.sec-exhi__pin img {
+  display: block;
+  width: 2.4rem;
+  height: auto;
+}
+
+.sec-exhi__pin.pin-usa {
+  top: 41.69%;
+  left: 18.8%;
+}
+
+.sec-exhi__pin.pin-uk {
+  top: 29.5%;
+  left: 46.3%;
+}
+
+.sec-exhi__pin.pin-europe {
+  top: 33.24%;
+  left: 49.95%;
+}
+
+.sec-exhi__pin.pin-russia {
+  top: 20.5%;
+  left: 73.14%;
+}
+
+.sec-exhi__pin.pin-iran {
+  top: 46.5%;
+  left: 62.5%;
+}
+
+.sec-exhi__pin.pin-uae {
+  top: 51.25%;
+  left: 62%;
+}
+
+.sec-exhi__pin.pin-india {
+  top: 51.5%;
+  left: 68.8%;
+}
+
+.sec-exhi__pin.pin-vietnam {
+  top: 52%;
+  left: 75.8%;
+}
+
+.sec-exhi__pin.pin-singapore {
+  top: 62.5%;
+  left: 75%;
+}
+
+.sec-exhi__pin.pin-china {
+  top: 45.57%;
+  left: 79.06%;
+}
+
+.sec-exhi__pin.pin-australia {
+  top: 80.02%;
+  left: 83.82%;
+}
+
+a.sec-exhi__pin {
+  cursor: pointer;
+}
+
+a.sec-exhi__pin img {
+  transition: transform 0.18s ease;
+}
+
+.sec-exhi__map.is-visible .sec-exhi__pin {
+  animation: exhibitionPinDrop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: calc(var(--i, 0) * 0.14s);
+}
+
+@keyframes exhibitionPinDrop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -280%);
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -100%);
+  }
+}
+
+@media all {
+  a.sec-exhi__pin:hover {
+    z-index: 2;
+  }
+
+  a.sec-exhi__pin:hover img {
+    transform: scale(1.2);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .sec-exhi {
+    --sec-gutter: clamp(1.8rem, 3.2vw, 3.6rem);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .sec-exhi {
+    --sec-gutter: clamp(1.2rem, 4vw, 2rem);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .sec-exhi__logos-track {
+    --logo-gap: 3rem;
+    animation-duration: 16s;
+  }
+
+  .sec-exhi__logos img {
+    height: 5.6rem;
+  }
+
+  .sec-exhi__pin img {
+    width: 2rem;
   }
 }
 
@@ -2608,7 +2810,7 @@ body.sticky .hd {
   transform: translateY(3px) rotate(45deg);
 }
 
-@media (hover: hover) {
+@media all {
   .swiper-control-btn:hover {
     background: #333333;
   }
@@ -3563,7 +3765,7 @@ body.sticky .hd {
   object-fit: contain;
 }
 
-@media (hover: hover) {
+@media all {
   .hd-actionbar__close:hover {
     background: #f3f3f3;
   }

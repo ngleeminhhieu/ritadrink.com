@@ -5,6 +5,7 @@ import MobileModule from "./modules/MobileModule.js";
 import MobileSubModule from "./modules/MobileSubModule.js";
 import IntroductionVideoModule from "./modules/IntroductionVideoModule.js";
 import CountUpModule from "./modules/CountUpModule.js";
+import ExhibitionModule from "./modules/ExhibitionModule.js";
 
 const initTemplateUtilities = () => {
   document.querySelector(".backToTopJS")?.addEventListener("click", () => {
@@ -28,9 +29,8 @@ const initHeroSlider = () => {
 
   const hero = slider.closest(".hero-banner");
   const slideCount = slider.querySelectorAll(".swiper-slide").length;
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const autoplayDelay = 6000;
-  const autoplayEnabled = slideCount > 1 && !reduceMotion;
+  const autoplayEnabled = slideCount > 1;
   const welcomeIsActive = Boolean(document.querySelector(".welcome-screen:not(.is-done)"));
   const desktopHero = window.matchMedia("(min-width: 1201px)");
   let heroSwiper;
@@ -60,7 +60,7 @@ const initHeroSlider = () => {
 
   heroSwiper = new window.Swiper(slider, {
     slidesPerView: 1,
-    speed: reduceMotion ? 0 : 700,
+    speed: 700,
     loop: slideCount > 1,
     watchOverflow: false,
     keyboard: {
@@ -126,6 +126,7 @@ const init = () => {
   MobileSubModule();
   IntroductionVideoModule();
   CountUpModule();
+  ExhibitionModule();
   initHeroSlider();
   initTemplateUtilities();
 };

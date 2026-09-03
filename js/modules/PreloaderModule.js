@@ -17,7 +17,6 @@ export default function PreloaderModule() {
   const media = welcome.querySelector(".welcome-screen__media");
   const brand = welcome.querySelector(".welcomeBrandJS");
   const content = welcome.querySelector(".welcomeContentJS");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const scrollKeys = new Set(["ArrowDown", "PageDown", "End", " "]);
   const reverseScrollKeys = new Set(["ArrowUp", "PageUp", "Home"]);
   const inertTargets = [...document.body.children]
@@ -124,7 +123,7 @@ export default function PreloaderModule() {
     welcome.addEventListener("transitionend", handleTransitionEnd);
     leaveFallbackTimer = window.setTimeout(
       () => finishDismiss({ restoreFocus }),
-      reduceMotion ? 50 : 1150,
+      1150,
     );
   };
 
@@ -213,12 +212,6 @@ export default function PreloaderModule() {
   const beginReveal = () => {
     if (state !== WELCOME_STATE.LOADING) return;
 
-    if (reduceMotion) {
-      welcome.classList.add("is-reduced-motion");
-      showWelcomeContent();
-      return;
-    }
-
     setState(WELCOME_STATE.REVEALING);
     welcome.classList.add("is-revealing");
 
@@ -233,7 +226,7 @@ export default function PreloaderModule() {
   };
 
   const waitForVideoFrame = () => new Promise((resolve) => {
-    if (!video || reduceMotion) {
+    if (!video) {
       resolve();
       return;
     }
@@ -279,9 +272,7 @@ export default function PreloaderModule() {
   addGestureListeners();
   setState(WELCOME_STATE.LOADING);
 
-  if (reduceMotion) {
-    video?.pause();
-  } else if (video) {
+  if (video) {
     video.addEventListener("loadeddata", () => {
       welcome.classList.remove("has-video-error");
     }, { once: true });
@@ -293,5 +284,5 @@ export default function PreloaderModule() {
     });
   }
 
-  Promise.all([delay(reduceMotion ? 0 : 500), waitForVideoFrame()]).then(beginReveal);
+  Promise.all([delay(500), waitForVideoFrame()]).then(beginReveal);
 }
