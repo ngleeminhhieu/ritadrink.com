@@ -3,7 +3,7 @@ export default function HeaderActionsModule() {
   if (!header) return;
 
   const actions = new Set(["search", "contact", "catalogue"]);
-  const triggers = [...header.querySelectorAll("[data-header-action-open]")];
+  const triggers = [...document.querySelectorAll("[data-header-action-open]")];
   const panels = [...header.querySelectorAll("[data-header-action-panel]")];
   const actionbar = header.querySelector(".hd-actionbar");
   const closeButton = header.querySelector(".headerActionCloseJS");

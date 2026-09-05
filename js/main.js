@@ -6,6 +6,10 @@ import MobileSubModule from "./modules/MobileSubModule.js";
 import IntroductionVideoModule from "./modules/IntroductionVideoModule.js";
 import CountUpModule from "./modules/CountUpModule.js";
 import ExhibitionModule from "./modules/ExhibitionModule.js";
+import CertificatesModule from "./modules/CertificatesModule.js";
+import RangeModule from "./modules/RangeModule.js";
+import BannerCtaModule from "./modules/BannerCtaModule.js";
+import NewsModule from "./modules/NewsModule.js";
 
 const initTemplateUtilities = () => {
   document.querySelector(".backToTopJS")?.addEventListener("click", () => {
@@ -129,6 +133,10 @@ const init = () => {
   ExhibitionModule();
   initHeroSlider();
   initTemplateUtilities();
+  CertificatesModule();
+  RangeModule();
+  BannerCtaModule();
+  NewsModule();
 };
 
 if (document.readyState === "loading") {

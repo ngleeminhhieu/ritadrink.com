@@ -10,7 +10,7 @@ const delay = (duration) => new Promise((resolve) => window.setTimeout(resolve, 
 
 export default function PreloaderModule() {
   const welcome = document.querySelector(".preloaderJS");
-  if (!welcome) return;
+  if (!welcome || welcome.hidden || welcome.classList.contains("is-done")) return;
 
   const video = welcome.querySelector(".welcomeVideoJS");
   const videoSource = video?.querySelector("source");
@@ -31,6 +31,9 @@ export default function PreloaderModule() {
   let touchTracking = false;
   let revealFallbackTimer;
   let leaveFallbackTimer;
+  let cancelVideoFrameWait = () => {};
+  let removeRevealListener = () => {};
+  let removeLeaveListener = () => {};
 
   const setState = (nextState) => {
     state = nextState;
@@ -62,6 +65,7 @@ export default function PreloaderModule() {
   };
 
   const unlockPage = () => {
+    window.removeEventListener("load", resetPageToTop);
     document.documentElement.classList.remove("welcome-screen-active");
     document.body.classList.remove("welcome-screen-active");
     inertTargets.forEach(({ element, wasInert }) => {
@@ -91,7 +95,13 @@ export default function PreloaderModule() {
   const finishDismiss = ({ restoreFocus = false } = {}) => {
     if (state === WELCOME_STATE.DISMISSED) return;
 
+    window.clearTimeout(revealFallbackTimer);
     window.clearTimeout(leaveFallbackTimer);
+    cancelVideoFrameWait();
+    removeRevealListener();
+    removeLeaveListener();
+    removeGestureListeners();
+    document.removeEventListener("welcome:force-dismiss", handleForceDismiss);
     setState(WELCOME_STATE.DISMISSED);
     welcome.classList.add("is-done");
     welcome.hidden = true;
@@ -104,6 +114,10 @@ export default function PreloaderModule() {
     }
     document.dispatchEvent(new CustomEvent("welcome:dismissed"));
   };
+
+  function handleForceDismiss() {
+    finishDismiss();
+  }
 
   const dismissWelcome = ({ restoreFocus = false } = {}) => {
     if (state !== WELCOME_STATE.READY) return;
@@ -121,6 +135,10 @@ export default function PreloaderModule() {
     };
 
     welcome.addEventListener("transitionend", handleTransitionEnd);
+    removeLeaveListener = () => {
+      welcome.removeEventListener("transitionend", handleTransitionEnd);
+      removeLeaveListener = () => {};
+    };
     leaveFallbackTimer = window.setTimeout(
       () => finishDismiss({ restoreFocus }),
       1150,
@@ -195,9 +213,10 @@ export default function PreloaderModule() {
   };
 
   const showWelcomeContent = () => {
+    window.clearTimeout(revealFallbackTimer);
+    removeRevealListener();
     if (state === WELCOME_STATE.READY || state === WELCOME_STATE.DISMISSED) return;
 
-    window.clearTimeout(revealFallbackTimer);
     setState(WELCOME_STATE.READY);
     welcome.classList.add("is-ready");
     welcome.setAttribute("aria-busy", "false");
@@ -217,11 +236,14 @@ export default function PreloaderModule() {
 
     const handleRevealEnd = (event) => {
       if (event.target !== media || event.animationName !== "welcomeMediaReveal") return;
-      media.removeEventListener("animationend", handleRevealEnd);
       showWelcomeContent();
     };
 
     media?.addEventListener("animationend", handleRevealEnd);
+    removeRevealListener = () => {
+      media?.removeEventListener("animationend", handleRevealEnd);
+      removeRevealListener = () => {};
+    };
     revealFallbackTimer = window.setTimeout(showWelcomeContent, 1700);
   };
 
@@ -232,19 +254,24 @@ export default function PreloaderModule() {
     }
 
     let settled = false;
+    let videoFrameFallbackTimer;
     const settle = () => {
       if (settled) return;
       settled = true;
+      window.clearTimeout(videoFrameFallbackTimer);
       video.removeEventListener("loadeddata", settle);
       video.removeEventListener("canplay", settle);
       video.removeEventListener("error", handleVideoError);
       videoSource?.removeEventListener("error", handleVideoError);
+      cancelVideoFrameWait = () => {};
       resolve();
     };
     const handleVideoError = () => {
       welcome.classList.add("has-video-error");
       settle();
     };
+
+    cancelVideoFrameWait = settle;
 
     if (video.error || video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
       handleVideoError();
@@ -260,7 +287,7 @@ export default function PreloaderModule() {
     video.addEventListener("canplay", settle, { once: true });
     video.addEventListener("error", handleVideoError, { once: true });
     videoSource?.addEventListener("error", handleVideoError, { once: true });
-    window.setTimeout(() => {
+    videoFrameFallbackTimer = window.setTimeout(() => {
       if (video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) {
         welcome.classList.add("has-video-error");
       }
@@ -268,6 +295,7 @@ export default function PreloaderModule() {
     }, 2400);
   });
 
+  document.addEventListener("welcome:force-dismiss", handleForceDismiss);
   lockPage();
   addGestureListeners();
   setState(WELCOME_STATE.LOADING);
@@ -279,9 +307,12 @@ export default function PreloaderModule() {
     video.muted = true;
     video.defaultMuted = true;
     video.playsInline = true;
-    video.play().catch(() => {
-      // A decoded first frame still provides a useful fallback when autoplay is blocked.
-    });
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(() => {
+        // A decoded first frame still provides a useful fallback when autoplay is blocked.
+      });
+    }
   }
 
   Promise.all([delay(500), waitForVideoFrame()]).then(beginReveal);
