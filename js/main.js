@@ -10,6 +10,9 @@ import CertificatesModule from "./modules/CertificatesModule.js";
 import RangeModule from "./modules/RangeModule.js";
 import BannerCtaModule from "./modules/BannerCtaModule.js";
 import NewsModule from "./modules/NewsModule.js";
+import ProductCategoriesModule from "./modules/ProductCategoriesModule.js";
+import CatalogSelectsModule from "./modules/CatalogSelectsModule.js";
+import CatalogFiltersModule from "./modules/CatalogFiltersModule.js";
 
 const initTemplateUtilities = () => {
   document.querySelector(".backToTopJS")?.addEventListener("click", () => {
@@ -137,6 +140,9 @@ const init = () => {
   RangeModule();
   BannerCtaModule();
   NewsModule();
+  ProductCategoriesModule();
+  CatalogSelectsModule();
+  CatalogFiltersModule();
 };
 
 if (document.readyState === "loading") {

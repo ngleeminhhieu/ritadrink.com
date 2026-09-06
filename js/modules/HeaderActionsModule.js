@@ -55,7 +55,7 @@ export default function HeaderActionsModule() {
     document.body.style.left = bodyStyles.left;
     document.body.style.width = bodyStyles.width;
     bodyStyles = null;
-    window.scrollTo(0, lockedScrollY);
+    window.scrollTo({ top: lockedScrollY, behavior: "instant" });
   };
 
   const syncAccessibility = () => {
@@ -108,7 +108,7 @@ export default function HeaderActionsModule() {
     activeAction = action;
     activeOpener = opener;
     header.dataset.headerAction = action;
-    header.classList.remove("hd-top-hide");
+    header.classList.remove("hd-scroll-hide");
     closeSelects();
     syncAccessibility();
     lockScroll();

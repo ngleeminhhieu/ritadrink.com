@@ -2,15 +2,15 @@
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="utf-8">
-    <title>شهاداتنا — RITA للمشروبات</title>
-    <meta name="description" content="استكشف شهادات الجودة وسلامة الأغذية الدولية التي تحملها RITA، بما في ذلك ISO 22000 وHACCP وGMP وHALAL وBRCGS وFSSC 22000.">
+    <title>مشروبات الفاكهة من RITA — حلول OEM وODM</title>
+    <meta name="description" content="اكتشف مشروبات الفاكهة من RITA بنكهات منعشة وتعبئات متنوعة، مع حلول OEM وODM المصممة لعلامتك التجارية.">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="icon" href="./assets/images/fav.jpg" type="image/jpeg">
     <link rel="stylesheet" href="./css/style.css">
   </head>
-  <body class="page-certificates">
+  <body class="page-products">
     <header class="hd default">
       <div class="hd-top">
         <div class="hd-top__inner">
@@ -38,8 +38,8 @@
                 <li class="menu-item mega" data-mega="about">
                   <a class="menu-link" href="./our-story.html">معلومات عنا<svg class="icon icon--chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></a>
                 </li>
-                <li class="menu-item mega" data-mega="products">
-                  <a class="menu-link" href="./products.html">المنتجات<svg class="icon icon--chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></a>
+                <li class="menu-item mega current-menu-item" data-mega="products">
+                  <a class="menu-link active" href="./products.html" aria-current="page">المنتجات<svg class="icon icon--chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></a>
                 </li>
                 <li class="menu-item mega" data-mega="services">
                   <a class="menu-link" href="./services.html">خدمة<svg class="icon icon--chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></a>
@@ -253,7 +253,7 @@
                 <div class="hd-mega__menu">
                   <ul class="hd-mega__list">
                     <li class="hd-mega__item"><a class="hd-mega__link" href="./our-story.html">قصتنا</a></li>
-                    <li class="hd-mega__item"><a class="hd-mega__link active" href="./our-certificates.html" aria-current="page">شهاداتنا</a></li>
+                    <li class="hd-mega__item"><a class="hd-mega__link" href="./our-certificates.html">شهاداتنا</a></li>
                     <li class="hd-mega__item"><a class="hd-mega__link" href="./our-activities.html">أنشطتنا</a></li>
                     <li class="hd-mega__item"><a class="hd-mega__link" href="./our-history.html">تاريخنا</a></li>
                     <li class="hd-mega__item"><a class="hd-mega__link" href="./our-brands.html">علاماتنا التجارية</a></li>
@@ -318,9 +318,9 @@
             <nav class="mobile-nav" aria-label="التنقل على الهاتف">
               <div class="menu-nav">
                 <ul class="menu-list">
-                  <li class="menu-item current-menu-item"><a class="menu-link active" href="./index.html">الصفحة الرئيسية</a></li>
+                  <li class="menu-item"><a class="menu-link" href="./index.html">الصفحة الرئيسية</a></li>
                   <li class="menu-item has-sub"><a class="menu-link mobileSubJS" href="./our-story.html" data-sub="about">معلومات عنا<img class="mobile-menu__arrow" src="./assets/images/ic-next.svg" alt="" aria-hidden="true"></a></li>
-                  <li class="menu-item has-sub"><a class="menu-link mobileSubJS" href="./products.html" data-sub="products">المنتجات<img class="mobile-menu__arrow" src="./assets/images/ic-next.svg" alt="" aria-hidden="true"></a></li>
+                  <li class="menu-item has-sub current-menu-item"><a class="menu-link active mobileSubJS" href="./products.html" data-sub="products" aria-current="page">المنتجات<img class="mobile-menu__arrow" src="./assets/images/ic-next.svg" alt="" aria-hidden="true"></a></li>
                   <li class="menu-item has-sub"><a class="menu-link mobileSubJS" href="./services.html" data-sub="services">خدمة<img class="mobile-menu__arrow" src="./assets/images/ic-next.svg" alt="" aria-hidden="true"></a></li>
                   <li class="menu-item"><a class="menu-link" href="./blog.html">أخبار</a></li>
                   <li class="menu-item"><a class="menu-link" href="./contact.html">اتصل بنا</a></li>
@@ -339,7 +339,7 @@
           </div>
           <ul class="mobile-sub__list">
             <li><a href="./our-story.html">قصتنا</a></li>
-            <li class="current-menu-item"><a href="./our-certificates.html" aria-current="page">شهاداتنا</a></li>
+            <li><a href="./our-certificates.html">شهاداتنا</a></li>
             <li><a href="./our-activities.html">أنشطتنا</a></li>
             <li><a href="./our-history.html">تاريخنا</a></li>
             <li><a href="./our-brands.html">علاماتنا التجارية</a></li>
@@ -381,89 +381,277 @@
       </div>
     </header>
 
-    <main class="main inner-page">
-      <section class="page-banner" aria-labelledby="page-title">
+    <main class="main inner-page catalog-page">
+      <section class="page-banner catalog-hero" aria-labelledby="page-title">
         <nav class="page-banner__breadcrumb" aria-label="مسار التنقل">
           <ol class="breadcrumb-list">
             <li class="breadcrumb-item"><a href="./index.html" aria-label="الصفحة الرئيسية"><img class="breadcrumb-icon" src="./assets/images/ic-home.svg" alt=""></a></li>
             <li class="breadcrumb-sep" aria-hidden="true">‹</li>
-            <li class="breadcrumb-item"><a href="./our-story.html">معلومات عنا</a></li>
+            <li class="breadcrumb-item"><a href="./products.html">منتجات</a></li>
             <li class="breadcrumb-sep" aria-hidden="true">‹</li>
-            <li class="breadcrumb-item breadcrumb-item--current" aria-current="page">شهاداتنا</li>
+            <li class="breadcrumb-item breadcrumb-item--current" aria-current="page">مشروبات الفاكهة</li>
           </ol>
         </nav>
-
         <div class="page-banner__media">
-          <img src="./assets/images/banner-cef-award.jpg" width="1492" height="500" alt="فريق RITA في معرض تجاري دولي" fetchpriority="high">
+          <img src="./assets/images/banner-product-categories.jpg" width="1512" height="520" alt="مشروب عصير الفواكه البنفسجية من RITA محاط بالتوت" fetchpriority="high">
           <div class="page-banner__content">
-            <h1 class="page-banner__title t-48" id="page-title">شهاداتنا</h1>
-            <p class="page-banner__desc t-18">جميع منشآت <bdi>RITA</bdi> معتمدة لتلبية متطلبات سلامة الأغذية والجودة في الأسواق التي نصدر إليها — بدءًا من <bdi>FDA</bdi> و<bdi>HALAL</bdi> وصولًا إلى <bdi>GMP</bdi> و<bdi>HACCP</bdi> و<bdi>ISO 22000</bdi> و<bdi>BRCGS</bdi> و<bdi>FSSC 22000</bdi>.</p>
+            <h1 class="page-banner__title t-48" id="page-title">مشروبات الفاكهة</h1>
+            <p class="page-banner__desc t-18">استكشف فئات المشروبات المصممة خصيصًا لعلامتك التجارية. من مشروبات الطاقة والعصائر إلى المياه الفوارة والحليب النباتي، تساعدك حلول <bdi>OEM/ODM</bdi> لدينا على إطلاق منتجات يحبها المستهلكون.</p>
           </div>
         </div>
       </section>
 
-      <section class="overview ss-pd" aria-labelledby="cert-overview-title">
-        <div class="page-shell">
-          <h2 class="overview__title t-32" id="cert-overview-title">مصنع واحد، وكل المعايير التي يتطلبها سوقك. مهما كانت المنطقة التي تبيع فيها، تمتلك <bdi>RITA</bdi> بالفعل الشهادات اللازمة لمساعدة منتجك على الوصول إلى رفوف المتاجر.</h2>
-          <ul class="overview__stats" aria-label="أرقام شهادات RITA">
-            <li class="overview-stat">
-              <p class="overview-stat__value"><span data-count="100">0</span><span class="overview-stat__unit">%</span></p>
-              <p class="overview-stat__label">تمت مراجعته من<br>قبل طرف ثالث</p>
+      <div class="catalog-layout">
+        <aside class="product-categories productCategoriesJS is-open" aria-labelledby="product-categories-title">
+          <div class="product-categories__sticky">
+            <div class="product-categories__head">
+              <button class="product-categories__toggle productCategoriesToggleJS" type="button" aria-controls="product-categories-list" aria-expanded="true">
+                <span id="product-categories-title">الإمكانات</span>
+                <img src="./assets/images/ic-dropdown.svg" alt="" aria-hidden="true">
+              </button>
+              <button class="catalog-filter-trigger catalogFiltersToggleJS" type="button" aria-controls="catalog-filters-category" aria-expanded="false" aria-label="فتح مرشحات المنتجات">
+                <span class="catalog-filter-trigger__icons" aria-hidden="true">
+                  <img class="catalog-filter-trigger__icon catalog-filter-trigger__icon--filter" src="./assets/images/ic-filter.svg" alt="">
+                  <img class="catalog-filter-trigger__icon catalog-filter-trigger__icon--close" src="./assets/images/ic-close.svg" alt="">
+                </span>
+              </button>
+            </div>
+            <div class="product-categories__panel productCategoriesPanelJS" id="product-categories-list" aria-hidden="false">
+              <div class="product-categories__panel-inner">
+                <ul class="product-categories__list">
+                  <li class="product-categories__item"><a href="./product-category.html?category=aloe-vera"><span>عصير الصبار</span><span class="product-categories__count">(2)</span></a></li>
+                  <li class="product-categories__item"><a href="./product-category.html?category=carbonated"><span>المشروبات الغازية</span><span class="product-categories__count">(28)</span></a></li>
+                  <li class="product-categories__item"><a href="./product-category.html?category=coconut"><span>منتجات جوز الهند</span><span class="product-categories__count">(2)</span></a></li>
+                  <li class="product-categories__item"><a href="./product-category.html?category=coffee"><span>سلسلة مشروبات القهوة</span><span class="product-categories__count">(132)</span></a></li>
+                  <li class="product-categories__item"><a href="./product-category.html?category=water"><span>مياه الشرب</span><span class="product-categories__count">(36)</span></a></li>
+                  <li class="product-categories__item"><a href="./product-category.html?category=energy"><span>سلسلة مشروبات الطاقة</span><span class="product-categories__count">(2)</span></a></li>
+                  <li class="product-categories__item is-active"><a href="./product-category.html" aria-current="page"><span>مشروبات الفاكهة</span><span class="product-categories__count">(2)</span></a></li>
+                  <li class="product-categories__item"><a href="./product-category.html?category=milk"><span>سلسلة الحليب</span><span class="product-categories__count">(23)</span></a></li>
+                  <li class="product-categories__item"><a href="./product-category.html?category=sparkling"><span>المشروبات الغازية</span><span class="product-categories__count">(2)</span></a></li>
+                  <li class="product-categories__item"><a href="./product-category.html?category=tea"><span>الشاي والعسل والفواكه</span><span class="product-categories__count">(2)</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <section class="catalog-results" aria-labelledby="products-list-title">
+          <h2 class="sr-only" id="products-list-title">قائمة المنتجات</h2>
+          <form class="catalog-filters catalog-filters--listing catalogFiltersPanelJS" id="catalog-filters-category" action="./searching.html" method="get" role="search" aria-label="تصفية المنتجات">
+            <div class="catalog-filters__inner">
+              <label class="catalog-field catalog-search">
+                <span class="sr-only">اسم المنتج</span>
+                <input class="catalog-search__input" type="search" name="q" placeholder="البحث عن المنتجات" autocomplete="off">
+                <button class="catalog-search__submit" type="submit" aria-label="بحث">
+                  <img src="./assets/images/ic-search.svg" alt="" aria-hidden="true">
+                </button>
+              </label>
+              <div class="catalog-field catalog-select">
+                <label class="sr-only" for="catalog-products-packaging">اختيار التعبئة والتغليف</label>
+                <select class="catalog-select__control select2CatalogJS" id="catalog-products-packaging" name="packaging" data-placeholder="اختيار التعبئة والتغليف">
+                  <option value="" selected>اختيار التعبئة والتغليف</option>
+                  <option value="%D8%A7%D9%84%D9%82%D8%B5%D8%AF%D9%8A%D8%B1+%D9%8A%D9%85%D9%83%D9%86">القصدير يمكن</option>
+                  <option value="%D8%A7%D9%84%D8%A3%D9%84%D9%88%D9%85%D9%86%D9%8A%D9%88%D9%85+%D9%8A%D9%85%D9%83%D9%86">الألومنيوم يمكن</option>
+                  <option value="%D8%B2%D8%AC%D8%A7%D8%AC%D8%A9+%D8%A7%D9%84%D8%AD%D9%8A%D9%88%D8%A7%D9%86%D8%A7%D8%AA+%D8%A7%D9%84%D8%A3%D9%84%D9%8A%D9%81%D8%A9">زجاجة الحيوانات الأليفة</option>
+                  <option value="%D8%B2%D8%AC%D8%A7%D8%AC%D8%A9+%D8%A7%D9%84%D8%B2%D8%AC%D8%A7%D8%AC">زجاجة الزجاج</option>
+                  <option value="%D8%B2%D8%AC%D8%A7%D8%AC%D8%A9+PP">زجاجة PP</option>
+                  <option value="%D8%AD%D9%82%D9%8A%D8%A8%D8%A9">حقيبة</option>
+                  <option value="%D8%AA%D9%8A%D8%AA%D8%B1%D8%A7+%D8%A8%D8%A7%D9%83">تيترا باك</option>
+                </select>
+              </div>
+              <div class="catalog-field catalog-select catalog-select--latin">
+                <label class="sr-only" for="catalog-products-size">اختيار حجم</label>
+                <select class="catalog-select__control select2CatalogJS" id="catalog-products-size" name="size" data-placeholder="اختيار حجم">
+                  <option value="" selected>اختيار حجم</option>
+                  <option value="180+ml">180 ml</option>
+                  <option value="200+ml">200 ml</option>
+                  <option value="240+ml">240 ml</option>
+                  <option value="250+ml">250 ml</option>
+                  <option value="280+ml">280 ml</option>
+                  <option value="290+ml">290 ml</option>
+                  <option value="300+ml">300 ml</option>
+                  <option value="310+ml">310 ml</option>
+                  <option value="490+ml">490 ml</option>
+                  <option value="320+ml">320 ml</option>
+                  <option value="325+ml">325 ml</option>
+                  <option value="330+ml">330 ml</option>
+                  <option value="340+ml">340 ml</option>
+                  <option value="350+ml">350 ml</option>
+                  <option value="360+ml">360 ml</option>
+                  <option value="400+ml">400 ml</option>
+                  <option value="450+ml">450 ml</option>
+                  <option value="470+ml">470 ml</option>
+                  <option value="485+ml">485 ml</option>
+                  <option value="500+ml">500 ml</option>
+                  <option value="960+ml">960 ml</option>
+                  <option value="1L">1L</option>
+                  <option value="1.25+L">1.25 L</option>
+                  <option value="1.5+L">1.5 L</option>
+                  <option value="2++L">2 L</option>
+                </select>
+              </div>
+            </div>
+          </form>
+
+          <ul class="prd-grid catalog-grid catalog-grid--listing">
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-1.jpg" width="413" height="413" alt="مياه غازية بداخلها شريحة ليمون حقيقية" fetchpriority="high"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text"><bdi>REAL LEMON SLICE INSIDE</bdi> مياه غازية 325 مل عبوات سليم – مشروب منعش</span></h2>
+              </a>
             </li>
-            <li class="overview-stat">
-              <p class="overview-stat__value"><span data-count="180">0</span><span class="overview-stat__unit">+</span></p>
-              <p class="overview-stat__label">الدول والأقاليم</p>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-2.jpg" width="392" height="413" alt="ماء ليمون فوار مع شرائح فواكه حقيقية" fetchpriority="high"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">ماء ليمون فوار مع شرائح فواكه حقيقية – 325 مل علبة</span></h2>
+              </a>
             </li>
-            <li class="overview-stat">
-              <p class="overview-stat__value"><span data-count="12">0</span><span class="overview-stat__unit">+</span></p>
-              <p class="overview-stat__label">الشهادات المحفوظة</p>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-3.jpg" width="392" height="413" alt="عصير عنب أخضر طبيعي فاخر" fetchpriority="high"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">عصير عنب أخضر طبيعي فاخر – 10.9 أونصة سائلة – يحتوي على عنب أخضر حقيقي</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-4.jpg" width="392" height="413" alt="مشروب جرين فيوجن بالفواكه الاستوائية" fetchpriority="high"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text"><bdi>GREEN FUSION</bdi> مشروب مزيج الفواكه الاستوائية</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-5.jpg" width="392" height="413" alt="مشروب تروبيكال جولد فيوجن بالفواكه" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text"><bdi>TROPICAL GOLD FUSION</bdi> مزيج فواكه – علب 325 مل (10.99 أونصة سائلة)</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-6.jpg" width="392" height="413" alt="مشروب ماء جوز الهند الطبيعي مع الفستق" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">مشروب ماء جوز الهند الطبيعي مع الفستق – 500 مل</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-7.jpg" width="392" height="413" alt="مشروب ماء جوز الهند الطبيعي بالفستق" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">مشروب ماء جوز الهند الطبيعي بالفستق – 320 مل</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-8.jpg" width="392" height="413" alt="مياه غازية فوارة 320 مل علبة" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">مياه غازية فوارة 320 مل علبة</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-9.jpg" width="392" height="413" alt="مشروب صودا المانجو فوار" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">مشروب صودا المانجو فوار 320 مل</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-10.jpg" width="392" height="413" alt="مشروب صودا كيوي غازي" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">مشروب صودا كيوي غازي 320 مل علبة</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-11.jpg" width="480" height="480" alt="مشروب عصير الأناناس الطبيعي" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">مشروب عصير الأناناس الطبيعي 100% – 325 مل</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-12.jpg" width="480" height="480" alt="مشروب عصير البرتقال الطبيعي" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">مشروب عصير البرتقال الطبيعي 100% – 325 مل</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-13.jpg" width="492" height="492" alt="مشروب عصير الفواكه المشكلة الطبيعي" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">مشروب عصير الفواكه المشكلة الطبيعي 100% – 325 مل</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-14.jpg" width="480" height="480" alt="مشروب عصير المانجوستين الطبيعي" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">مشروب عصير المانجوستين الطبيعي 100% – 325 مل</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-15.jpg" width="480" height="480" alt="مشروب عصير المانجو الطبيعي" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">مشروب عصير المانجو الطبيعي 100% – 325 مل</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-16.jpg" width="480" height="480" alt="مشروب عصير العنب الأحمر الطبيعي" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">مشروب عصير العنب الأحمر الطبيعي 100% – 325 مل</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-17.jpg" width="480" height="480" alt="مشروب عصير الفواكه البنفسجية المركب" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">مشروب عصير الفواكه البنفسجية المركب – 490 مل</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-18.jpg" width="492" height="492" alt="مشروب عصير الجوافة مع اللب" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">مشروب عصير الجوافة 100% مع اللب – 490 مل</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-19.jpg" width="480" height="480" alt="مشروب عصير الأناناس مع اللب" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">مشروب عصير الأناناس 100% مع اللب – 490 مل</span></h2>
+              </a>
+            </li>
+            <li class="prd-card">
+              <a href="./product-category.html">
+                <span class="prd-pic"><img src="./assets/images/product-20.jpg" width="480" height="480" alt="مشروب عصير المانجو مع اللب" loading="lazy" decoding="async"></span>
+                <span class="prd-tag"><bdi>OEM/ODM</bdi></span>
+                <h2 class="prd-name"><span class="prd-name__text">مشروب عصير المانجو 100% مع اللب – 490 مل</span></h2>
+              </a>
             </li>
           </ul>
-        </div>
-      </section>
 
-      <section class="sec-cert certificate-list ss-pd">
-        <div class="page-shell">
-          <div class="certificate-grid certificateGridJS" id="certificates-grid" data-page-size="8">
-            <a class="certificate-card" href="./assets/images/cef-digicert_Rita_ISO_22K.webp" data-fancybox="certificates" data-caption="ISO 22000" aria-label="فتح شهادة ISO 22000">
-              <img src="./assets/images/cef-logo-iso-22000.png" alt="ISO 22000" loading="lazy" decoding="async">
-            </a>
-            <a class="certificate-card" href="./assets/images/cef-digicert_Rita_HACCP.webp" data-fancybox="certificates" data-caption="HACCP" aria-label="فتح شهادة HACCP">
-              <img src="./assets/images/cef-logo-haccp.png" alt="HACCP" loading="lazy" decoding="async">
-            </a>
-            <a class="certificate-card" href="./assets/images/cef-digicert_Rita_GMP.webp" data-fancybox="certificates" data-caption="GMP — Good Manufacturing Practice" aria-label="فتح شهادة GMP">
-              <img src="./assets/images/cef-logo-gmp.png" alt="GMP" loading="lazy" decoding="async">
-            </a>
-            <a class="certificate-card" href="./assets/images/cef-digicert_Rita_HALAL-HCA.webp" data-fancybox="certificates" data-caption="HALAL HCA" aria-label="فتح شهادة HALAL HCA">
-              <img src="./assets/images/cef-logo-halal-hca.png" alt="HALAL HCA" loading="lazy" decoding="async">
-            </a>
-            <a class="certificate-card" href="./assets/images/cef-digicert_Rita_HALAL-MY.webp" data-fancybox="certificates" data-caption="HALAL Malaysia" aria-label="فتح شهادة HALAL Malaysia">
-              <img src="./assets/images/cef-logo-halal-my.png" alt="HALAL Malaysia" loading="lazy" decoding="async">
-            </a>
-            <a class="certificate-card" href="./assets/images/cef-digicert_Rita_BRCGS.webp" data-fancybox="certificates" data-caption="BRCGS Food Safety" aria-label="فتح شهادة BRCGS">
-              <img src="./assets/images/cef-logo-brcgs.png" alt="BRCGS Food Safety" loading="lazy" decoding="async">
-            </a>
-            <a class="certificate-card" href="./assets/images/cef-digicert_Rita_FSSC.webp" data-fancybox="certificates" data-caption="FSSC 22000" aria-label="فتح شهادة FSSC 22000">
-              <img src="./assets/images/cef-logo-fssc-22000.png" alt="FSSC 22000" loading="lazy" decoding="async">
-            </a>
-            <a class="certificate-card" href="./assets/images/cef-digicert_Rita_AIJIN.webp" data-fancybox="certificates" data-caption="AIJN — European Fruit Juice Association" aria-label="فتح شهادة AIJN">
-              <img src="./assets/images/cef-logo-aijn.png" alt="AIJN" loading="lazy" decoding="async">
-            </a>
-            <a class="certificate-card is-hidden" href="./assets/images/cef-digicert_Rita-BSI.webp" data-caption="BSI" aria-label="فتح شهادة BSI" hidden aria-hidden="true">
-              <img src="./assets/images/cef-logo-bsi.png" alt="BSI" loading="lazy" decoding="async">
-            </a>
-            <a class="certificate-card is-hidden" href="./assets/images/cef-logo-ifs.png" data-caption="IFS Food" aria-label="فتح شهادة IFS Food" hidden aria-hidden="true">
-              <img src="./assets/images/cef-logo-ifs.png" alt="IFS Food" loading="lazy" decoding="async">
-            </a>
-            <a class="certificate-card is-hidden" href="./assets/images/cef-logo-smeta.png" data-caption="SMETA" aria-label="فتح شهادة SMETA" hidden aria-hidden="true">
-              <img src="./assets/images/cef-logo-smeta.png" alt="SMETA" loading="lazy" decoding="async">
-            </a>
+          <div class="catalog-pagination">
+            <nav aria-label="صفحات المنتجات">
+              <ul class="catalog-pagination__list">
+                <li><a class="catalog-pagination__link is-active" href="?page=1" aria-current="page">1</a></li>
+                <li><a class="catalog-pagination__link" href="?page=2">2</a></li>
+                <li><a class="catalog-pagination__link" href="?page=3">3</a></li>
+                <li><a class="catalog-pagination__link" href="?page=4">4</a></li>
+                <li><span class="catalog-pagination__ellipsis" aria-hidden="true">…</span></li>
+                <li><a class="catalog-pagination__link" href="?page=22">22</a></li>
+                <li><a class="catalog-pagination__link" href="?page=22">LAST</a></li>
+              </ul>
+            </nav>
+            <p class="catalog-pagination__summary"><bdi>1–20</bdi>&nbsp; من أصل <bdi>568</bdi> منتجًا</p>
           </div>
-        </div>
-        <div class="certificate-actions">
-          <button class="btn second certificateLoadMoreJS" type="button" aria-controls="certificates-grid" aria-expanded="false"><span class="txt"><span class="txt-inner">شاهد المزيد</span><img class="btn__icon" src="./assets/images/ic-arrow.svg" alt="" aria-hidden="true"></span></button>
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
 
     <aside class="page-actions" aria-label="روابط الاتصال السريع">
