@@ -16,7 +16,7 @@ export default function CertificatesModule() {
   if (!grids.length) return;
 
   grids.forEach((grid) => {
-    const items = [...grid.querySelectorAll(".certificate-card")];
+    const items = [...grid.querySelectorAll(".card-item")];
     const pageSize = Math.max(1, Number.parseInt(grid.dataset.pageSize, 10) || 8);
     const section = grid.closest(".certificate-list");
     const loadMore = section?.querySelector(".certificateLoadMoreJS");

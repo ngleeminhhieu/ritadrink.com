@@ -13,6 +13,11 @@ import NewsModule from "./modules/NewsModule.js";
 import ProductCategoriesModule from "./modules/ProductCategoriesModule.js";
 import CatalogSelectsModule from "./modules/CatalogSelectsModule.js";
 import CatalogFiltersModule from "./modules/CatalogFiltersModule.js";
+import ProductContentModule from "./modules/ProductContentModule.js";
+import ProductRelatedModule from "./modules/ProductRelatedModule.js";
+import ContactModule from "./modules/ContactModule.js";
+import BlogRelatedModule from "./modules/BlogRelatedModule.js";
+import BrandPopupModule from "./modules/BrandPopupModule.js";
 
 const initTemplateUtilities = () => {
   document.querySelector(".backToTopJS")?.addEventListener("click", () => {
@@ -143,6 +148,11 @@ const init = () => {
   ProductCategoriesModule();
   CatalogSelectsModule();
   CatalogFiltersModule();
+  ProductContentModule();
+  ProductRelatedModule();
+  ContactModule();
+  BlogRelatedModule();
+  BrandPopupModule();
 };
 
 if (document.readyState === "loading") {
