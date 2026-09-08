@@ -5,10 +5,10 @@ export default function CountUpModule() {
   if (!counters.length) return;
 
   const getParts = (counter) => {
-    const stat = counter.closest(".sec-intro__stat");
+    const stat = counter.closest(".sec-intro__stat, .story-stat");
     return {
-      unit: counter.parentElement?.querySelector(".sec-intro__unit"),
-      label: stat?.querySelector(".sec-intro__label"),
+      unit: counter.parentElement?.querySelector(".sec-intro__unit, .story-stat__unit"),
+      label: stat?.querySelector(".sec-intro__label, .story-stat__label"),
     };
   };
 

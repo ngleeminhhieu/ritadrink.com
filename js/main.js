@@ -18,6 +18,9 @@ import ProductRelatedModule from "./modules/ProductRelatedModule.js";
 import ContactModule from "./modules/ContactModule.js";
 import BlogRelatedModule from "./modules/BlogRelatedModule.js";
 import BrandPopupModule from "./modules/BrandPopupModule.js";
+import AwardsModule from "./modules/AwardsModule.js";
+import HistoryModule from "./modules/HistoryModule.js";
+import StoryGalleryModule from "./modules/StoryGalleryModule.js";
 
 const initTemplateUtilities = () => {
   document.querySelector(".backToTopJS")?.addEventListener("click", () => {
@@ -153,6 +156,9 @@ const init = () => {
   ContactModule();
   BlogRelatedModule();
   BrandPopupModule();
+  AwardsModule();
+  HistoryModule();
+  StoryGalleryModule();
 };
 
 if (document.readyState === "loading") {

@@ -26,7 +26,7 @@ export default function BlogRelatedModule() {
           slidesPerView: 3,
         },
         1201: {
-          slidesPerView: 4,
+          slidesPerView: 5,
         },
       },
       a11y: {

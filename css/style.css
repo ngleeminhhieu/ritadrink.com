@@ -2479,8 +2479,6 @@ body.sticky .hd .hd-bar {
   border-inline-start: 1px solid var(--card-line);
 }
 
-/* Three brands on three of the five tracks, so the cells match; no auto
-   margin, so the row stays flush with the inline start like every other grid. */
 .card-grid.is-brand {
   width: 60%;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2509,7 +2507,6 @@ body.sticky .hd .hd-bar {
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Brand wordmarks are wider than a certificate seal, so they get more room. */
 .card-item.is-brand {
   padding: clamp(1.6rem, 2vw, 3.2rem);
   cursor: pointer;
@@ -2531,6 +2528,10 @@ body.sticky .hd .hd-bar {
 .certificateLoadMoreJS[hidden],
 .brandLoadMoreJS[hidden] {
   display: none;
+}
+
+.certificate-shell .card-item {
+  display: flex;
 }
 
 .certificate-actions {
@@ -2709,7 +2710,10 @@ body.sticky .hd .hd-bar {
   .contact-page,
   .catalog-page,
   .product-detail-page,
-  .blog-detail-page {
+  .blog-detail-page,
+  .awards-page,
+  .activities-page,
+  .history-page {
     --page-gutter: clamp(1.8rem, 3.2vw, 3.6rem);
   }
 
@@ -2755,7 +2759,10 @@ body.sticky .hd .hd-bar {
   .contact-page,
   .catalog-page,
   .product-detail-page,
-  .blog-detail-page {
+  .blog-detail-page,
+  .awards-page,
+  .activities-page,
+  .history-page {
     --page-gutter: clamp(1.2rem, 4vw, 2rem);
   }
 
@@ -3510,7 +3517,6 @@ body.sticky .hd .hd-bar {
   min-height: 9.8rem;
   flex: 1 1 auto;
   padding: 1.4rem 2.4rem;
-  border-top: 1px solid var(--news-line);
   color: var(--color-text);
   font-weight: 700;
   line-height: 1.45;
@@ -6813,7 +6819,6 @@ a.sec-exhi__pin img {
   --blog-title-gap: 1.6rem;
   min-height: calc(2 * 1.45em + var(--blog-title-gap) * 2 - var(--news-media-pad));
   padding: calc(var(--blog-title-gap) - var(--news-media-pad)) clamp(1.2rem, 1.4vw, 2rem) var(--blog-title-gap);
-  border-top: 0;
 }
 
 .blog-grid .news-card__media-frame {
@@ -7206,6 +7211,10 @@ a.sec-exhi__pin img {
   border-inline-start: 1px solid var(--blog-detail-line);
 }
 
+.blog-related__slider .swiper-slide:last-child {
+  border-inline-end: 1px solid var(--blog-detail-line);
+}
+
 @media screen and (max-width: 900px) {
   .blog-detail__hero {
     grid-template-columns: minmax(0, 1fr);
@@ -7410,4 +7419,1056 @@ a.sec-exhi__pin img {
 }
 
 @media all {
+}
+
+/* Awards: sticky booth photo beside the winning products, plus their popup. */
+.awards-page {
+  --awards-line: var(--color-line);
+  --awards-sticky-top: var(--rtl-header-h);
+  --page-gutter: clamp(2rem, 4vw, 8rem);
+  background: #ffffff;
+}
+
+.hd.hd-top-hide + .awards-page {
+  --awards-sticky-top: var(--rtl-navbar-h);
+}
+
+.hd.hd-scroll-hide + .awards-page {
+  --awards-sticky-top: 0px;
+}
+
+@media screen and (min-width: 901px) {
+  .awards-page {
+    overflow: visible;
+  }
+}
+
+.awards__layout {
+  display: grid;
+  border-block-start: 1px solid var(--awards-line);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.awards__grid {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* The cards draw the divider against the photo, so the media column adds none. */
+.award-card {
+  min-width: 0;
+  border-inline-end: 1px solid var(--awards-line);
+  border-block-end: 1px solid var(--awards-line);
+}
+
+.award-card__btn {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  padding: clamp(1.6rem, 2vw, 3.2rem) clamp(1.2rem, 1.6vw, 2.4rem) clamp(2rem, 2.4vw, 3.2rem);
+  gap: 0.6rem;
+  border: 0;
+  background: #ffffff;
+  cursor: pointer;
+  text-align: right;
+}
+
+.award-card__media {
+  position: relative;
+  display: grid;
+  margin-bottom: clamp(1.6rem, 2vw, 2.8rem);
+  place-items: center;
+}
+
+.award-card__can {
+  width: min(80%, 32rem);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.award-card__seal {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  width: clamp(5.6rem, 6vw, 8.4rem);
+  height: auto;
+  filter: brightness(0);
+}
+
+.award-card__event {
+  color: var(--color-text);
+  font-family: "Poppins", Tahoma, Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.award-card__award {
+  color: var(--color-pri);
+  font-family: "Poppins", Tahoma, Arial, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.awards__media {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  border-block-end: 1px solid var(--awards-line);
+}
+
+.awards__media-sticky {
+  position: sticky;
+  top: var(--awards-sticky-top);
+  height: calc(100dvh - var(--awards-sticky-top));
+  overflow: hidden;
+  transition: top 0.35s ease, height 0.35s ease;
+}
+
+.awards__media-sticky img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.award-popup {
+  --awards-line: var(--color-line);
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s ease, opacity 0.3s ease;
+}
+
+.award-popup.is-open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.award-popup__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 20, 20, 0.6);
+}
+
+.award-popup__panel {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  overflow: hidden;
+  background: #ffffff;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.award-popup__close {
+  position: absolute;
+  top: 0.8rem;
+  inset-inline-end: 0.8rem;
+  z-index: 3;
+  display: grid;
+  width: 4.8rem;
+  height: 4.8rem;
+  padding: 0;
+  border: 0;
+  background: #303030;
+  cursor: pointer;
+  place-items: center;
+}
+
+.award-popup__close img {
+  width: 1.6rem;
+  height: 1.6rem;
+  filter: brightness(0) invert(1);
+}
+
+.award-popup__media {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background: #f4f4f4;
+}
+
+.award-popup__media img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  object-fit: cover;
+}
+
+.award-popup__tag {
+  position: absolute;
+  top: 0.8rem;
+  inset-inline-end: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1.6rem;
+  background: var(--color-pri);
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.award-popup__tag img {
+  width: 2.2rem;
+  height: auto;
+  border-radius: 0;
+  object-fit: contain;
+}
+
+.award-popup__info {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: none;
+  border-inline-start: 1px solid var(--awards-line);
+  text-align: right;
+}
+
+.award-popup__info::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.award-popup__head {
+  padding: clamp(3.2rem, 3.4vw, 5.6rem) clamp(2rem, 2.6vw, 4rem);
+}
+
+.award-popup__event {
+  color: var(--color-text);
+  font-family: "Poppins", Tahoma, Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.award-popup__award {
+  margin-top: 0.4rem;
+  color: var(--color-pri);
+  font-family: "Poppins", Tahoma, Arial, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.award-popup__product {
+  margin-top: clamp(2rem, 2.4vw, 3.2rem);
+  color: var(--color-text);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.award-popup__desc {
+  margin-top: clamp(1.2rem, 1.6vw, 2rem);
+  color: var(--color-sub);
+  line-height: 1.8;
+}
+
+.award-popup__actions {
+  display: flex;
+  align-items: stretch;
+  gap: 1.2rem;
+  margin-top: clamp(2.4rem, 2.8vw, 4rem);
+  flex-wrap: wrap;
+}
+
+.award-popup__actions .btn[hidden] {
+  display: none;
+}
+
+
+.award-popup__also {
+  margin-top: auto;
+  padding: clamp(2.4rem, 3vw, 4rem) clamp(2rem, 2.6vw, 4rem) 0;
+  border-block-start: 1px solid var(--awards-line);
+}
+
+.award-popup__also-title {
+  color: var(--color-text);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* The panel divider already draws the inline-start edge of the first cell. */
+.award-popup__also-slider {
+  margin-top: clamp(2rem, 2.4vw, 3.2rem);
+  margin-inline: calc(clamp(2rem, 2.6vw, 4rem) * -1);
+  border-block-start: 1px solid var(--awards-line);
+}
+
+.award-popup__also-item {
+  display: grid;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0.8rem;
+  border: 0;
+  border-inline-end: 1px solid var(--awards-line);
+  background: #ffffff;
+  cursor: pointer;
+  place-items: stretch;
+}
+
+/* The frame clips the hover zoom so it never eats the 8px gutter. */
+.award-popup__also-frame {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.award-popup__also-frame img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  object-fit: cover;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media screen and (max-width: 1200px) {
+  .award-card__btn {
+    padding-inline: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .awards__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Stacked, so the photo leads the list instead of standing beside it. */
+  .awards__media {
+    order: -1;
+    border-block-end: 0;
+  }
+
+  .awards__media-sticky {
+    position: static;
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .award-card:nth-child(odd) {
+    border-inline-start: 1px solid var(--awards-line);
+  }
+
+  .award-popup__panel {
+    overflow-y: auto;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+
+  .award-popup__media {
+    aspect-ratio: 1 / 1;
+  }
+
+  .award-popup__info {
+    overflow-y: visible;
+    border-inline-start: 0;
+    border-block-start: 1px solid var(--awards-line);
+  }
+}
+
+@media all {
+  .award-card__btn:hover .award-card__can {
+    transform: scale(1.05);
+  }
+
+  .award-popup__also-item:hover .award-popup__also-frame img {
+    transform: scale(1.05);
+  }
+
+  /* The button turns dark on hover, so the red play mark flips to white. */
+  .award-popup__actions .btn:hover .award-popup__play {
+    filter: brightness(0) invert(1);
+  }
+}
+
+.activities-page {
+  --activities-line: #000000;
+  --page-gutter: clamp(2rem, 4vw, 8rem);
+  background: #ffffff;
+}
+
+.activities-grid {
+  display: flex;
+  margin-block-start: var(--section-gap);
+  border-top: 1px solid var(--activities-line);
+}
+
+.activities-grid__col {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 0;
+  flex-direction: column;
+}
+
+.activities-grid__col--wide {
+  flex-grow: 1.2;
+}
+
+.activity-card {
+  display: block;
+  min-width: 0;
+  padding: 0.8rem;
+  border-block-end: 1px solid var(--activities-line);
+}
+
+.activity-card__frame {
+  position: relative;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  background: #f4f4f4;
+}
+
+.activity-card__frame img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.activity-card__label {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  z-index: 2;
+  padding: 0.7rem 1.6rem;
+  background: var(--color-pri);
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+@media screen and (min-width: 901px) {
+  .activities-grid__col:not(:first-child) {
+    border-inline-start: 1px solid var(--activities-line);
+  }
+
+  .activity-card:last-child {
+    flex: 1 1 auto;
+  }
+
+  .activity-card:last-child .activity-card__frame img {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .activity-card:not(:last-child) {
+    border-inline-start:unset;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .activities-grid {
+    flex-direction: column;
+  }
+
+  .activities-grid__col:last-child .activity-card:last-child {
+    border-block-end: unset;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .activity-card__label {
+    padding: 0.6rem 1.2rem;
+    font-size: 1.2rem;
+  }
+}
+
+@media all {
+  .activity-card:hover .activity-card__frame img {
+    transform: scale(1.04);
+  }
+}
+
+.history-page {
+  --hist-line: var(--color-line);
+  --hist-bar-h: 6.4rem;
+  --page-gutter: clamp(2rem, 4vw, 8rem);
+  overflow: visible;
+  background: #ffffff;
+}
+
+.hist {
+  position: relative;
+  height: calc(var(--hist-count, 1) * 100svh);
+}
+
+.hist__pin {
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: 100svh;
+  align-items: stretch;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.hist__media {
+  position: relative;
+  width: 50%;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.hist__shot {
+  position: absolute;
+  padding: 0.8rem;
+  inset: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.9s ease, visibility 0.9s ease;
+}
+
+.hist__shot.is-active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.hist__frame {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hist__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.12);
+  transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hist__shot.is-active .hist__frame img {
+  transform: scale(1);
+}
+
+/* inline-end is the left edge here, so the year hugs the seam with the text. */
+.hist__year {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  inset-inline-end: clamp(1.6rem, 3vw, 5rem);
+  color: #ffffff;
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: clamp(8rem, 11vw, 16rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-24%);
+  transition: opacity 0.7s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  writing-mode: sideways-lr;
+}
+
+.hist__shot.is-active .hist__year {
+  opacity: 1;
+  transform: translateY(-50%);
+}
+
+.hist__content {
+  position: relative;
+  z-index: 2;
+  width: 50%;
+  flex-shrink: 0;
+  background: #ffffff;
+}
+
+.hist__panel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  padding: 6rem clamp(3.2rem, 6vw, 10rem) calc(var(--hist-bar-h) + 4rem);
+  inset: 0;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(3rem);
+  transition: opacity 0.6s ease, visibility 0.6s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hist__panel.is-active {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hist__panel-inner {
+  max-width: 56rem;
+  text-align: right;
+}
+
+.hist__tag {
+  display: inline-block;
+  margin-bottom: 1.6rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--color-text);
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.hist__title {
+  margin-bottom: 2.4rem;
+  color: var(--color-text);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.hist__desc {
+  color: var(--color-des);
+  line-height: 1.8;
+}
+
+.hist__bar {
+  position: absolute;
+  z-index: 4;
+  bottom: 0;
+  inset-inline: 0;
+  border-block: 1px solid var(--hist-line);
+  background: #ffffff;
+}
+
+.hist__bar-list {
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.hist__bar-list::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.hist__bar-cell {
+  min-width: 0;
+  flex: 1 0 auto;
+}
+
+.hist__bar-cell:not(:last-child) .hist__bar-item {
+  border-inline-end: 1px solid var(--hist-line);
+}
+
+.hist__bar-item {
+  display: grid;
+  width: 100%;
+  height: var(--hist-bar-h);
+  padding: 0 clamp(1.6rem, 2vw, 3.2rem);
+  border: 0;
+  background: transparent;
+  color: var(--color-sub);
+  cursor: pointer;
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  place-items: center;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+.hist__bar-item.is-active {
+  background: var(--color-pri);
+  color: #ffffff;
+}
+
+@media screen and (max-width: 1200px) {
+  /* Unpinned: photo and panel alternate down the page, paired by JS order. */
+  .hist {
+    height: auto;
+  }
+
+  .hist__pin {
+    position: static;
+    display: grid;
+    height: auto;
+    overflow: visible;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hist__media,
+  .hist__content {
+    display: contents;
+  }
+
+  .hist__shot {
+    position: relative;
+    visibility: visible;
+    aspect-ratio: 16 / 10;
+    inset: auto;
+    opacity: 1;
+    overflow: hidden;
+  }
+
+  .hist__frame img,
+  .hist__shot.is-active .hist__frame img {
+    transform: none;
+  }
+
+  .hist__year {
+    font-size: clamp(6rem, 14vw, 10rem);
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+
+  .hist__panel {
+    position: static;
+    display: block;
+    padding: 3.2rem var(--page-gutter) 4rem;
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+  }
+
+  .hist__panel-inner {
+    max-width: none;
+  }
+
+  .hist__title {
+    margin-bottom: 1.6rem;
+  }
+
+  .hist__bar {
+    position: sticky;
+    bottom: 0;
+    order: 9999;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .history-page {
+    --hist-bar-h: 5.2rem;
+  }
+
+  .hist__shot {
+    aspect-ratio: 4 / 3;
+  }
+
+  .hist__panel {
+    padding: 2.4rem var(--page-gutter) 3.2rem;
+  }
+
+  .hist__bar-item {
+    font-size: 1.4rem;
+  }
+}
+
+@media all {
+  .hist__bar-item:hover {
+    background: var(--color-cream);
+    color: var(--color-text);
+  }
+
+  .hist__bar-item.is-active:hover {
+    background: var(--color-pri);
+    color: #ffffff;
+  }
+}
+
+.story-page {
+  background: #ffffff;
+}
+
+.story-intro {
+  --story-line: var(--color-line);
+  --story-pad: clamp(1.6rem, 2.4vw, 4rem);
+  --story-control-h: 4.2rem;
+  --story-gap: 0.8rem;
+  --story-speed: 900ms;
+  --story-ease: cubic-bezier(0.76, 0, 0.24, 1);
+  position: relative;
+  display: grid;
+  border-block-end: 1px solid var(--story-line);
+  background: #ffffff;
+  overflow: hidden;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+
+/* Columns 1-4 are the right-hand half under RTL. The stage is an empty box: it
+   reserves the area, carries the controls and takes the drag. */
+.story-stage {
+  position: relative;
+  z-index: 4;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  grid-column: 1 / span 4;
+  grid-row: 1 / span 2;
+}
+
+.story-stage:active {
+  cursor: grabbing;
+}
+
+.story-intro__aside {
+  min-width: 0;
+  border-inline-start: 1px solid var(--story-line);
+  grid-column: 5 / span 4;
+  grid-row: 1;
+}
+
+.story-intro__head {
+  padding: clamp(3.2rem, 4vw, 6rem) var(--story-pad) clamp(2.8rem, 3.5vw, 5rem);
+  text-align: right;
+}
+
+.story-stats {
+  display: grid;
+  border-block-start: 1px solid var(--story-line);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.story-stat {
+  min-width: 0;
+  padding: clamp(2rem, 2.6vw, 4rem) var(--story-pad);
+  border-block-end: 1px solid var(--story-line);
+  text-align: right;
+}
+
+/* Even cells sit in the left column, so their start edge is the divider. */
+.story-stat:nth-child(even) {
+  border-inline-start: 1px solid var(--story-line);
+}
+
+.story-stat__value {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  color: var(--color-pri);
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: clamp(3.6rem, 4.4vw, 7.2rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  line-height: 0.9;
+}
+
+.story-stat__unit {
+  margin-left: 0.4rem;
+  color: var(--color-green);
+  font-size: 0.48em;
+  line-height: 1;
+}
+
+.story-stat__label {
+  margin-top: 1.2rem;
+  color: var(--color-text);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* Four empty cells that only exist to hold the slot geometry and the rules. */
+.story-strip {
+  display: grid;
+  grid-column: 5 / span 4;
+  grid-row: 2;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.story-strip__cell {
+  display: block;
+  aspect-ratio: 1;
+  border-inline-start: 1px solid var(--story-line);
+}
+
+/* Without JS the photos stay in flow as a plain row; once measured they lift
+   out and every move is a transition, so nothing ever re-flows mid-slide. */
+.story-photos {
+  display: grid;
+  grid-column: 1 / span 8;
+  grid-row: 3;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.story-intro.is-ready .story-photos {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  inset: 0;
+  pointer-events: none;
+  grid-row: auto;
+}
+
+.story-photo {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  padding: var(--story-gap);
+  border: 0;
+  aspect-ratio: 1;
+  background: transparent;
+  cursor: pointer;
+}
+
+.story-intro.is-ready .story-photo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--w, 0px);
+  height: var(--h, 0px);
+  padding: var(--pad, 0px);
+  aspect-ratio: auto;
+  pointer-events: auto;
+  transform: translate3d(var(--x, 0px), var(--y, 0px), 0);
+  transition:
+    transform var(--story-speed) var(--story-ease),
+    width var(--story-speed) var(--story-ease),
+    height var(--story-speed) var(--story-ease),
+    padding var(--story-speed) var(--story-ease);
+}
+
+.story-intro.is-ready .story-photo.is-active {
+  cursor: default;
+}
+
+.story-photo__frame {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  background: #f4f4f4;
+  overflow: hidden;
+}
+
+.story-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.story-nav {
+  position: absolute;
+  z-index: 5;
+  bottom: var(--story-pad);
+  inset-inline-end: var(--story-pad);
+  display: flex;
+  cursor: auto;
+  gap: 0.8rem;
+}
+
+.story-nav .swiper-control-btn {
+  position: relative;
+  top: auto;
+  width: var(--story-control-h);
+  height: var(--story-control-h);
+  inset-inline: auto;
+  background: var(--color-cream);
+  transform: none;
+}
+
+.story-actions {
+  position: absolute;
+  z-index: 5;
+  bottom: var(--story-pad);
+  inset-inline-start: var(--story-pad);
+  display: flex;
+  align-items: stretch;
+  cursor: auto;
+  gap: 0.8rem;
+}
+
+.story-counter {
+  display: flex;
+  width: max-content;
+  min-width: var(--story-control-h);
+  height: var(--story-control-h);
+  padding-inline: 1.2rem;
+  white-space: nowrap;
+  background: var(--color-cream);
+  color: var(--color-pri);
+  direction: ltr;
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  place-items: center;
+}
+
+.story-video.btn {
+  --btn-icon-filter: brightness(0) invert(1);
+  min-width: 0;
+  min-height: var(--story-control-h);
+  height: var(--story-control-h);
+  font-size: 1.4rem;
+}
+
+.story-video.btn .txt {
+  padding: 0 1.4rem;
+  gap: 0.8rem;
+}
+
+.story-video.btn .btn__icon {
+  width: 12px;
+  height: 12px;
+  flex-basis: 12px;
+}
+
+@media all {
+  .story-nav .swiper-control-btn:hover {
+    background: #303030;
+  }
+
+  .story-nav .swiper-control-btn:hover img {
+    filter: brightness(0) invert(1);
+  }
+
+  .story-photo:not(.is-active):hover img {
+    transform: scale(1.06);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .story-intro {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .story-intro__aside {
+    border-inline-start: 0;
+    grid-column: 1 / span 4;
+    grid-row: 1;
+  }
+
+  .story-stage {
+    aspect-ratio: 4 / 3;
+    border-block-end: 1px solid var(--story-line);
+    grid-column: 1 / span 4;
+    grid-row: 2;
+  }
+
+  .story-strip {
+    grid-column: 1 / span 4;
+    grid-row: 3;
+  }
+
+  .story-photos {
+    grid-column: 1 / span 4;
+    grid-row: 4;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .story-intro {
+    --story-control-h: 3.6rem;
+  }
+
+  .story-stat {
+    padding-block: 2rem;
+  }
+
+  .story-counter {
+    font-size: 1.2rem;
+  }
+
+  .story-video.btn {
+    font-size: 1.2rem;
+  }
+}
+
+.story-page .sec-banner-cta {
+  border-block-end: 1px solid var(--banner-cta-line);
 }
