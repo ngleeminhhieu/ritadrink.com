@@ -9731,9 +9731,13 @@ a.sec-exhi__pin img {
   border-block-end: 0;
 }
 
-.pkg__grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+.pkg__slider {
+  width: 100%;
+  min-width: 0;
+}
+
+.pkg__slider .swiper-wrapper {
+  box-sizing: border-box;
 }
 
 .pkg-cell {
@@ -9759,10 +9763,6 @@ a.sec-exhi__pin img {
   margin: auto;
   object-fit: contain;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.pkg-cell:nth-child(5n) {
-  border-inline-end: 0;
 }
 
 .pkg-cell.is-last-row {
@@ -9804,15 +9804,6 @@ a.sec-exhi__pin img {
     grid-row: 2;
   }
 
-  .pkg__label,
-  .pkg-cell {
-    border-inline-end: 0;
-  }
-
-  .pkg-cell:not(:nth-child(5n)) {
-    border-inline-end: 1px solid var(--pkg-line);
-  }
-
   .pkg__viewer-stage {
     min-height: 42svh;
   }
@@ -9825,20 +9816,6 @@ a.sec-exhi__pin img {
 
   .pkg__stage img {
     max-height: 34svh;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .pkg__grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .pkg-cell:not(:nth-child(5n)) {
-    border-inline-end: 0;
-  }
-
-  .pkg-cell:not(:nth-child(4n)) {
-    border-inline-end: 1px solid var(--pkg-line);
   }
 }
 
@@ -9961,5 +9938,107 @@ a.sec-exhi__pin img {
 @media screen and (max-width: 1200px) {
   .sec-faq {
     --sec-gutter: clamp(1.8rem, 3.2vw, 3.6rem);
+  }
+}
+/* Swiper's own stylesheet sizes every slide at 100% until the script runs, so a
+   multi-slide row flashes as one oversized card and then snaps into place. Each
+   slider declares the per-view count its config will use and the pre-init width
+   follows it; Swiper's inline widths take over the moment it initialises. Keep
+   these in step with the breakpoints in the matching module. */
+.swiper:not(.swiper-initialized) .swiper-slide {
+  width: calc(100% / var(--swiper-spv, 1));
+}
+
+.newsSliderJS {
+  --swiper-spv: 1.12;
+}
+
+.blogRelatedSliderJS {
+  --swiper-spv: 1.15;
+}
+
+.productRelatedSliderJS {
+  --swiper-spv: 2;
+}
+
+.processSliderJS {
+  --swiper-spv: 1.1;
+}
+
+.awardAlsoJS {
+  --swiper-spv: 1.6;
+}
+
+.pkgMaterialJS,
+.pkgSizeJS {
+  --swiper-spv: 4;
+}
+
+@media screen and (min-width: 600px) {
+  .newsSliderJS {
+    --swiper-spv: 1.65;
+  }
+
+  .blogRelatedSliderJS {
+    --swiper-spv: 2;
+  }
+
+  .productRelatedSliderJS {
+    --swiper-spv: 3;
+  }
+
+  .processSliderJS {
+    --swiper-spv: 1.6;
+  }
+
+  .awardAlsoJS {
+    --swiper-spv: 2.4;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .newsSliderJS {
+    --swiper-spv: 2.1;
+  }
+}
+
+@media screen and (min-width: 901px) {
+  .blogRelatedSliderJS {
+    --swiper-spv: 3;
+  }
+
+  .productRelatedSliderJS {
+    --swiper-spv: 4;
+  }
+
+  .processSliderJS {
+    --swiper-spv: 2.4;
+  }
+
+  .awardAlsoJS {
+    --swiper-spv: 3;
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  .newsSliderJS {
+    --swiper-spv: 2.7;
+  }
+
+  .blogRelatedSliderJS {
+    --swiper-spv: 5;
+  }
+
+  .productRelatedSliderJS {
+    --swiper-spv: 5;
+  }
+
+  .processSliderJS {
+    --swiper-spv: 1.5;
+  }
+
+  .pkgMaterialJS,
+  .pkgSizeJS {
+    --swiper-spv: 5;
   }
 }

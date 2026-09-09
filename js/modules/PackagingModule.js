@@ -56,6 +56,36 @@ export default function PackagingModule() {
   let sizeIndex = 0;
   let shotIndex = 0;
   let slider = null;
+  let sizeSlider = null;
+
+  // Both pickers are sliders: one row of materials, two rows of sizes. Flush
+  // slides keep the cells' own end borders reading as continuous rules.
+  const PICKER = {
+    speed: 450,
+    spaceBetween: 0,
+    slidesPerView: 4,
+    grabCursor: true,
+    watchOverflow: true,
+    breakpoints: {
+      1201: { slidesPerView: 5 },
+    },
+  };
+
+  const buildSizeSlider = () => {
+    if (sizeSlider) {
+      sizeSlider.destroy(true, false);
+      sizeSlider = null;
+    }
+    if (typeof window.Swiper === "undefined") return;
+
+    const el = root.querySelector(".pkgSizeJS");
+    if (!el) return;
+
+    sizeSlider = new window.Swiper(el, {
+      ...PICKER,
+      grid: { rows: 2, fill: "row" },
+    });
+  };
 
   const inMaterial = () => formats.filter((format) => format.material === material);
 
@@ -157,9 +187,10 @@ export default function PackagingModule() {
     shotIndex = 0;
 
     sizes.innerHTML = inMaterial()
-      .map((format, index) => `<button class="pkg-cell pkg-cell--size${index === 0 ? " is-active" : ""}" type="button" role="tab" aria-selected="${index === 0}" data-pkg-size="${index}"><img src="${format.images[0]}" alt="${format.name}" loading="lazy" decoding="async"></button>`)
+      .map((format, index) => `<button class="pkg-cell pkg-cell--size swiper-slide${index === 0 ? " is-active" : ""}" type="button" role="tab" aria-selected="${index === 0}" data-pkg-size="${index}"><img src="${format.images[0]}" alt="${format.name}" loading="lazy" decoding="async"></button>`)
       .join("");
 
+    buildSizeSlider();
     markLastRow();
     paintStage();
   };
@@ -210,6 +241,11 @@ export default function PackagingModule() {
   });
 
   window.addEventListener("resize", markLastRow);
+
+  if (typeof window.Swiper !== "undefined") {
+    const materialEl = root.querySelector(".pkgMaterialJS");
+    if (materialEl) new window.Swiper(materialEl, PICKER);
+  }
 
   paintSizes();
 }
