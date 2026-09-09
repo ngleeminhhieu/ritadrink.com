@@ -700,19 +700,26 @@ body:has(.welcome-screen:not(.is-done)) {
   left: 0;
   z-index: 141;
   border: 0;
-  transition: transform 0.35s ease, visibility 0s;
+  /* No will-change here: it would make the header a containing block for its
+     own position: fixed children, collapsing the mobile menu and its overlay
+     to the height of the header. */
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    border-bottom-color 0.2s ease;
 }
 
 .hd.hd-scroll-hide {
-  visibility: hidden;
   pointer-events: none;
-  transform: translateY(-100%);
-  transition: transform 0.35s ease, visibility 0s 0.35s;
+  transform: translateY(calc(var(--rtl-navbar-h) * -1));
 }
 
 .hd.default,
 body.sticky .hd {
   border-bottom: var(--line);
+}
+
+.hd.default.hd-scroll-hide,
+body.sticky .hd.hd-scroll-hide {
+  border-bottom-color: transparent;
 }
 
 .hd-top {
@@ -721,7 +728,8 @@ body.sticky .hd {
   max-height: var(--rtl-topbar-h);
   overflow: hidden;
   background: #303030;
-  transition: max-height 0.35s ease, opacity 0.3s ease;
+  transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease;
 }
 
 .hd.hd-top-hide .hd-top {
@@ -1663,6 +1671,14 @@ body.sticky .hd .hd-bar {
   object-fit: cover;
 }
 
+/* Swiper ships margin-inline: auto on its root. A grid or flex item with auto
+   inline margins is not stretched -- it is sized to max-content and centred --
+   so a slider placed in a grid column loses its definite width and every
+   percentage slide width inside it collapses to the photo's own size. */
+.swiper {
+  margin-inline: 0;
+}
+
 .swiper-control {
   --swiper-control-offset: var(--rtl-side-control-offset);
   position: absolute;
@@ -1699,6 +1715,11 @@ body.sticky .hd .hd-bar {
 
 .swiper-control-btn.swiper-next {
   right: var(--swiper-control-offset);
+}
+
+/* Hover still falls through to the shared dark state below. */
+.swiper-control-btn.is-cream {
+  background: var(--color-cream);
 }
 
 .swiper-control-btn img {
@@ -2453,7 +2474,8 @@ body.sticky .hd .hd-bar {
   border-block: 1px solid var(--color-line);
 }
 
-.sec-exhi + .sec-cert {
+.sec-exhi + .sec-cert,
+.sec-why + .sec-cert {
   border-block-start: 0;
 }
 
@@ -2592,7 +2614,7 @@ body.sticky .hd .hd-bar {
 
 .page-banner__media {
   position: relative;
-  min-height: clamp(32rem, 33vw, 50rem);
+  height: clamp(32rem, 33vw, 50rem);
   overflow: hidden;
   color: #ffffff;
 }
@@ -2607,7 +2629,6 @@ body.sticky .hd .hd-bar {
 .page-banner__media>img {
   width: 100%;
   height: 100%;
-  min-height: inherit;
   object-fit: cover;
   object-position: center;
 }
@@ -2792,6 +2813,7 @@ body.sticky .hd .hd-bar {
   }
 
   .page-banner__media {
+    height: auto;
     min-height: 30rem;
   }
 
@@ -3601,7 +3623,8 @@ body.sticky .hd .hd-bar {
   background: #ffffff;
 }
 
-.sec-why + .sec-exhi {
+.sec-why + .sec-exhi,
+.sec-cert + .sec-exhi {
   border-block-start: 0;
 }
 
@@ -3929,7 +3952,7 @@ a.sec-exhi__pin img {
 }
 
 .ft-bottom {
-  padding: 0 40px;
+  padding: 0 32px;
   background: #303030;
   color: #ffffff;
 }
@@ -5032,6 +5055,7 @@ a.sec-exhi__pin img {
   .hd-actionbar__close {
     width: 64px;
     flex-basis: 64px;
+    margin-right: auto;
   }
 
   .hd-action-search {
@@ -6192,10 +6216,10 @@ a.sec-exhi__pin img {
   }
 }
 
+/* The header slide stays on even under reduced motion: it is the bar leaving
+   the screen, not decoration, and freezing it made the bar read as display
+   none. Everything else here still honours the preference. */
 @media (prefers-reduced-motion: reduce) {
-  .hd,
-  .hd.hd-scroll-hide,
-  .hd-top,
   .product-categories__panel,
   .page-products .product-categories__head,
   .page-products .product-categories__panel,
@@ -8471,4 +8495,1471 @@ a.sec-exhi__pin img {
 
 .story-page .sec-banner-cta {
   border-block-end: 1px solid var(--banner-cta-line);
+}
+
+/* Leadership: the portrait panel pins while the message column scrolls past. */
+.sec-leader {
+  --leader-line: var(--color-line);
+  --leader-pad: clamp(2rem, 3vw, 5.6rem);
+  display: grid;
+  border-block: 1px solid var(--leader-line);
+  background: #ffffff;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sec-banner-cta + .sec-leader {
+  border-block-start: 0;
+}
+
+/* Column 2 is the left-hand half under RTL, which is where the panel belongs;
+   placing both explicitly keeps the heading first in the document. */
+.leader-intro {
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: 100svh;
+  padding: var(--leader-pad);
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.6) 38%, rgba(255, 255, 255, 0) 72%),
+    url("../assets/images/bg-ceo.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.leader-intro__head {
+  position: relative;
+  z-index: 2;
+  text-align: right;
+}
+
+.leader-intro__head .sec-desc {
+  max-width: 52rem;
+}
+
+.leader-intro__portrait {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 50%;
+  width: min(74%, 46rem);
+  margin: 0;
+  transform: translateX(-50%);
+}
+
+.leader-intro__portrait img {
+  width: 100%;
+  height: auto;
+}
+
+.leader-intro__actions {
+  position: absolute;
+  z-index: 3;
+  bottom: var(--leader-pad);
+  inset-inline-start: var(--leader-pad);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.leader-body {
+  min-width: 0;
+  border-inline-end: 1px solid var(--leader-line);
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.leader-block {
+  display: flex;
+  padding: clamp(3.2rem, 4vw, 6.4rem) var(--leader-pad);
+  flex-direction: column;
+  text-align: right;
+}
+
+.leader-block:not(:last-child) {
+  border-block-end: 1px solid var(--leader-line);
+}
+
+.leader-block__name,
+.leader-block__title {
+  color: var(--color-pri);
+  font-weight: 800;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.leader-block__role {
+  margin-top: 1.2rem;
+  color: var(--color-text);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.leader-block__text {
+  max-width: 56rem;
+  margin-top: clamp(2rem, 2.4vw, 3.2rem);
+  color: var(--color-des);
+  line-height: 1.8;
+}
+
+.leader-block__media {
+  width: min(100%, 44rem);
+  margin: clamp(2.8rem, 3.5vw, 4.8rem) 0 0;
+}
+
+.leader-block__media img {
+  width: 100%;
+  height: auto;
+}
+
+.leader-block__icon {
+  width: clamp(5.6rem, 6vw, 8rem);
+  height: auto;
+  margin-top: clamp(2.8rem, 3.5vw, 4.8rem);
+}
+
+@media screen and (min-width: 1201px) {
+  /* .main clips its overflow, which would kill the sticky panel. */
+  .story-page {
+    overflow: visible;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .sec-leader {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .leader-intro {
+    position: static;
+    height: auto;
+    padding-bottom: min(52vw, 46rem);
+    aspect-ratio: auto;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .leader-intro__portrait {
+    width: min(64%, 38rem);
+  }
+
+  .leader-body {
+    border-inline-end: 0;
+    border-block-start: 1px solid var(--leader-line);
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .leader-intro {
+    padding-bottom: min(76vw, 40rem);
+  }
+
+  .leader-intro__portrait {
+    width: min(82%, 32rem);
+  }
+
+  .leader-intro__actions .btn {
+    min-width: 0;
+  }
+}
+
+/* Production process: a fixed copy panel with the slider running off its edge. */
+.sec-process {
+  --process-line: var(--color-line);
+  --process-pad: clamp(2rem, 3vw, 5.6rem);
+  --process-card-w: 66.667%;
+  display: grid;
+  border-block-end: 1px solid var(--process-line);
+  background: #ffffff;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.process__head {
+  display: flex;
+  padding: clamp(4rem, 6vw, 10rem) var(--process-pad);
+  border-inline-end: 1px solid var(--process-line);
+  flex-direction: column;
+  justify-content: center;
+  text-align: right;
+}
+
+.process__nav {
+  display: flex;
+  margin-bottom: clamp(2.4rem, 3vw, 4.8rem);
+  justify-content: flex-start;
+  gap: 0.8rem;
+}
+
+.process__nav .swiper-control-btn {
+  position: relative;
+  top: auto;
+  width: 4.2rem;
+  height: 4.2rem;
+  inset-inline: auto;
+  background: var(--color-cream);
+  transform: none;
+}
+
+.process__head .sec-desc {
+  max-width: 52rem;
+}
+
+/* Slides carry the rule on their end edge, so the head keeps the seam and the
+   strip runs on past the viewport without an outer line. */
+.process__slider {
+  min-width: 0;
+}
+
+.process__slider .swiper-slide {
+  width: var(--process-card-w);
+  height: auto;
+}
+
+.process-card {
+  display: flex;
+  height: 100%;
+  min-width: 0;
+  padding: 0.8rem 0.8rem clamp(2.4rem, 3vw, 4rem);
+  border-inline-end: 1px solid var(--process-line);
+  flex-direction: column;
+  background: #ffffff;
+  text-align: right;
+}
+
+.process-card__media {
+  position: relative;
+  margin: 0;
+  max-height: 46rem;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #f4f4f4;
+}
+
+.process-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.process-card__step {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  z-index: 2;
+  padding: 0.7rem 1.6rem;
+  background: var(--color-pri);
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.process-card__title {
+  margin-top: clamp(1.8rem, 2.2vw, 2.8rem);
+  padding-inline: clamp(0.8rem, 1.2vw, 1.6rem);
+  color: var(--color-text);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.process-card__desc {
+  margin-top: 1.2rem;
+  padding-inline: clamp(0.8rem, 1.2vw, 1.6rem);
+  color: var(--color-des);
+  line-height: 1.8;
+}
+
+@media all {
+  .process__nav .swiper-control-btn:hover {
+    background: #303030;
+  }
+
+  .process__nav .swiper-control-btn:hover img {
+    filter: brightness(0) invert(1);
+  }
+
+  .process-card:hover .process-card__media img {
+    transform: scale(1.05);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .sec-process {
+    --process-card-w: 41.667%;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .process__head {
+    padding: clamp(3.2rem, 5vw, 6rem) var(--page-gutter, var(--process-pad));
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--process-line);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .sec-process {
+    --process-card-w: 62.5%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .process-card__step {
+    padding: 0.6rem 1.2rem;
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .sec-process {
+    --process-card-w: 90.909%;
+  }
+}
+
+/* Exhibitions: two independent columns, each pairing photos or running one
+   across, so the halves keep their own rhythm like the reference board. */
+.sec-expo {
+  --expo-line: var(--color-line);
+  --expo-gap: 0.8rem;
+  --sec-gutter: clamp(2rem, 3.6vw, 11rem);
+  width: 100%;
+  background: #ffffff;
+}
+
+.sec-expo__head {
+  padding-inline: var(--sec-gutter);
+  text-align: right;
+}
+
+.sec-expo__head .sec-desc {
+  width: min(100%, 96rem);
+  margin-inline-end: auto;
+}
+
+.expo-grid {
+  display: grid;
+  margin-top: var(--section-gap);
+  border-block-start: 1px solid var(--expo-line);
+  border-inline-start: 1px solid var(--expo-line);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.expo-grid__col {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* The ratios match the sources exactly, so the captions burned into each photo
+   are never cropped and paired cells always line up. */
+.expo-item {
+  display: block;
+  min-width: 0;
+  padding: var(--expo-gap);
+  border: 0;
+  border-inline-end: 1px solid var(--expo-line);
+  border-block-end: 1px solid var(--expo-line);
+  background: #ffffff;
+}
+
+.expo-item--wide {
+  grid-column: span 2;
+}
+
+/* The ratio sits on the frame inside, so the 8px inset is not eaten by it. */
+.expo-item__frame {
+  display: block;
+  aspect-ratio: 723 / 453;
+  background: #f4f4f4;
+  overflow: hidden;
+}
+
+.expo-item--wide .expo-item__frame {
+  aspect-ratio: 739 / 504;
+}
+
+.expo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media all {
+  .expo-item:hover img {
+    transform: scale(1.04);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .expo-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .expo-grid__col {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .expo-item--wide {
+    grid-column: auto;
+  }
+}
+
+/* Service flow: the step list drives the photo beside it. */
+.sec-flow {
+  --flow-line: var(--color-line);
+  --flow-accent: var(--color-pri);
+  --flow-pad: clamp(2rem, 3vw, 5.6rem);
+  display: grid;
+  border-block-end: 1px solid var(--flow-line);
+  background: #ffffff;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sec-flow--odm {
+  --flow-accent: #3b82c4;
+}
+
+/* Column 1 is the right-hand half under RTL, which is where the copy sits. */
+.flow__panel {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.flow__head {
+  padding: clamp(3.2rem, 4vw, 6rem) var(--flow-pad) clamp(2.8rem, 3.5vw, 4.8rem);
+  flex: 0 0 auto;
+  text-align: right;
+}
+
+.flow__title {
+  color: var(--color-text);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.flow__desc {
+  max-width: 56rem;
+  margin-top: var(--head-gap);
+  color: var(--color-des);
+  line-height: 1.8;
+}
+
+.flow__steps {
+  display: grid;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  flex: 1 1 auto;
+  grid-auto-rows: minmax(0, 1fr);
+  list-style: none;
+}
+
+/* The number keeps its own square at the start edge, the copy runs beside it. */
+.flow-step {
+  display: grid;
+  align-content: center;
+  align-items: center;
+  padding: clamp(1.8rem, 2.2vw, 2.8rem) var(--flow-pad);
+  border-block-start: 1px solid var(--flow-line);
+  cursor: pointer;
+  gap: clamp(1.6rem, 2vw, 2.8rem);
+  grid-template-columns: auto minmax(0, 1fr);
+  text-align: right;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+.flow-step__num {
+  display: grid;
+  width: clamp(4.4rem, 4.6vw, 6.4rem);
+  aspect-ratio: 1;
+  background: var(--color-text);
+  color: #ffffff;
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: clamp(1.8rem, 1.9vw, 2.6rem);
+  font-weight: 700;
+  place-items: center;
+}
+
+.flow-step__title {
+  color: var(--color-text);
+  font-weight: 700;
+  line-height: 1.35;
+  transition: color 0.35s ease;
+}
+
+.flow-step__desc {
+  margin-top: 0.8rem;
+  color: var(--color-des);
+  line-height: 1.7;
+  transition: color 0.35s ease;
+}
+
+.flow-step.is-active {
+  background: var(--flow-accent);
+}
+
+.flow-step.is-active .flow-step__title,
+.flow-step.is-active .flow-step__desc {
+  color: #ffffff;
+}
+
+.flow__media {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  border-inline-end: 1px solid var(--flow-line);
+  overflow: hidden;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.flow__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s ease;
+}
+
+.flow__media.is-swapping img {
+  opacity: 0;
+}
+
+@media all {
+  .flow-step:not(.is-active):hover {
+    background: var(--color-cream);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .sec-flow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .flow__panel {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .flow__media {
+    aspect-ratio: 4 / 3;
+    border-inline-end: 0;
+    border-block-start: 1px solid var(--flow-line);
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .flow-step {
+    gap: 1.2rem;
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  /* .main clips its overflow, which would kill the pinned panel. */
+  .service-page {
+    overflow: visible;
+  }
+}
+
+/* Milestones: the section is tall, the panel inside is pinned, and vertical
+   scroll is spent walking the track sideways. */
+.sec-mile {
+  --mile-line: var(--color-line);
+  --mile-gap: clamp(1.6rem, 2vw, 3.2rem);
+  --mile-map-h: 62%;
+  --mile-lit: var(--color-pri);
+  --mile-pad: clamp(2rem, 4vw, 8rem);
+  position: relative;
+  height: calc(var(--mile-count, 1) * 46svh);
+  border-block-end: 1px solid var(--mile-line);
+  background: #ffffff;
+}
+
+.mile__pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+/* The dot field is a mask: a flat rect gives the base colour and a second rect
+   carrying a gradient slides behind it, so the 6552 circles rasterise once and
+   only one rect moves per frame. */
+.mile-map {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: var(--mile-map-h);
+  margin-block: auto;
+  pointer-events: none;
+}
+
+.mile-map__base {
+  fill: var(--color-text);
+  opacity: 0.2;
+}
+
+.mile-map__edge {
+  stop-color: var(--mile-lit);
+  stop-opacity: 0;
+}
+
+.mile-map__peak {
+  stop-color: var(--mile-lit);
+  stop-opacity: 0.85;
+}
+
+/* Peak rides from the right edge to the left as the milestones advance. */
+.mile-map__sweep {
+  transform: translateX(calc((1 - var(--mile-progress, 0)) * 1216px - 608px));
+}
+
+/* max-content in an RTL box starts flush right, so a positive shift walks the
+   track forward and the cards arrive from the left. */
+.mile__track {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: max-content;
+  height: 100%;
+  align-items: center;
+  padding-inline: var(--mile-pad);
+  gap: var(--mile-gap);
+  transform: translateX(var(--mile-x, 0px));
+  will-change: transform;
+}
+
+.mile__intro {
+  display: flex;
+  width: calc(var(--mile-view, 100vw) - var(--mile-pad) * 2);
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mile__title {
+  max-width: 76rem;
+  color: var(--color-text);
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.mile__hint {
+  display: none;
+}
+
+.mile-card {
+  display: flex;
+  width: clamp(26rem, 25vw, 34rem);
+  height: min(74svh, 60rem);
+  padding: clamp(2rem, 2.4vw, 3.2rem);
+  border: 1px solid var(--mile-line);
+  flex-direction: column;
+  flex-shrink: 0;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.86);
+  text-align: right;
+}
+
+.mile-card__tag {
+  align-self: flex-start;
+  margin-bottom: 1.2rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--color-text);
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.mile-card__title {
+  color: var(--color-pri);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.mile__progress {
+  display: none;
+}
+
+.mile-card__desc {
+  margin-top: auto;
+  color: var(--color-des);
+  line-height: 1.8;
+}
+
+@media screen and (max-width: 1200px) {
+  /* Unpinned: the track becomes a plain sideways scroller. */
+  .sec-mile {
+    height: auto;
+  }
+
+  .mile__pin {
+    position: static;
+    height: auto;
+    padding-block: clamp(3.2rem, 5vw, 6rem);
+  }
+
+  .mile-map {
+    height: 72%;
+  }
+
+  /* Snapping gives the strip a deliberate feel and lands each card square,
+     which the free scroll never did. */
+  .mile__track {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: var(--mile-pad);
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    transform: none;
+    width: auto;
+  }
+
+  .mile__intro,
+  .mile-card {
+    scroll-snap-align: start;
+  }
+
+  /* The scrollbar is hidden, so this is the only thing telling anyone the strip
+     moves -- and it doubles as the position readout. */
+  .mile__progress {
+    position: relative;
+    display: block;
+    height: 2px;
+    margin-block-start: clamp(2rem, 3vw, 3.2rem);
+    margin-inline: var(--mile-pad);
+    background: var(--mile-line);
+  }
+
+  .mile__progress-fill {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    display: block;
+    width: calc(var(--mile-progress, 0) * 100%);
+    background: var(--mile-lit);
+  }
+
+  .mile__track::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .mile__intro {
+    width: min(72vw, 48rem);
+  }
+
+  .mile__title {
+    text-align: right;
+  }
+
+  /* Stacked so the hint sits under the title rather than beside it. */
+  .mile__intro {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: clamp(1.6rem, 2.4vw, 2.4rem);
+  }
+
+  .mile__hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--mile-lit);
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  /* A single double-headed arrow: the element is the shaft and the pseudos are
+     the two heads, so the whole icon takes the text colour. */
+  /* order pushes it past the text, which under RTL puts it on the left. */
+  .mile__hint-icon {
+    position: relative;
+    display: block;
+    width: 2.4rem;
+    height: 2px;
+    order: 1;
+    flex: 0 0 auto;
+    background: currentColor;
+    animation: mileHintNudge 1.8s ease-in-out infinite;
+  }
+
+  .mile__hint-icon::before,
+  .mile__hint-icon::after {
+    position: absolute;
+    top: 50%;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-top: 2px solid currentColor;
+    border-left: 2px solid currentColor;
+    content: "";
+  }
+
+  .mile__hint-icon::before {
+    left: 0;
+    transform: translateY(-50%) rotate(-45deg);
+  }
+
+  .mile__hint-icon::after {
+    right: 0;
+    transform: translateY(-50%) rotate(135deg);
+  }
+
+  @keyframes mileHintNudge {
+    0%,
+    100% {
+      transform: translateX(-0.3rem);
+    }
+
+    50% {
+      transform: translateX(0.3rem);
+    }
+  }
+
+  .mile-card {
+    height: auto;
+    min-height: 42rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mile__intro {
+    width: min(84vw, 34rem);
+  }
+
+  .mile-card {
+    width: min(78vw, 30rem);
+    min-height: 38rem;
+  }
+}
+
+.page-odm .sec-mile {
+  --mile-lit: #3b82c4;
+}
+
+/* Label finishes: three cans on a ruled row, same border split as the why grid
+   -- the container draws the start edges, each card closes its own end edges. */
+.sec-label {
+  --grid-line: var(--color-line);
+  --sec-gutter: clamp(2rem, 3.6vw, 11rem);
+  --label-shot-h: 41.2rem;
+  width: 100%;
+  background: #ffffff;
+}
+
+.sec-label__head {
+  width: 100%;
+  padding-inline: var(--sec-gutter);
+  text-align: right;
+}
+
+.sec-label__head .sec-desc {
+  width: min(100%, 120rem);
+  margin-inline-end: auto;
+}
+
+.label-grid {
+  display: grid;
+  width: 100%;
+  margin-top: var(--section-gap);
+  border-block-start: 1px solid var(--grid-line);
+  border-inline-start: 1px solid var(--grid-line);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.label-card {
+  display: flex;
+  min-width: 0;
+  padding: clamp(2.4rem, 3vw, 4.8rem);
+  border-inline-end: 1px solid var(--grid-line);
+  border-block-end: 1px solid var(--grid-line);
+  flex-direction: column;
+  background: #ffffff;
+  text-align: right;
+}
+
+.label-card__media {
+  display: flex;
+  height: var(--label-shot-h);
+  margin: 0 0 clamp(2.4rem, 3vw, 4.8rem);
+  align-items: flex-start;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+/* The shot area is 412px at its largest, the sources' own height, so nothing
+   here is ever upscaled. */
+.label-card__media img {
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.label-card__body {
+  flex: 1 1 auto;
+}
+
+.label-card__title {
+  color: var(--color-text);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.label-card__desc {
+  margin-top: 1.6rem;
+  color: var(--color-sub);
+  line-height: 1.7;
+}
+
+@media all {
+  .label-card:hover .label-card__media img {
+    transform: scale(1.04);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .sec-label {
+    --sec-gutter: clamp(1.8rem, 3.2vw, 3.6rem);
+    --label-shot-h: 32rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .sec-label {
+    --label-shot-h: 28rem;
+  }
+
+  .label-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Packaging picker: preview on one half, the format grid on the other. */
+.sec-pkg {
+  --pkg-line: var(--color-line);
+  --pkg-pad: clamp(2rem, 3vw, 5.6rem);
+  display: grid;
+  border-block-end: 1px solid var(--pkg-line);
+  background: #ffffff;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Column 2 is the left-hand half under RTL, which is where the preview goes. */
+.pkg__viewer {
+  display: flex;
+  min-width: 0;
+  padding: clamp(3.2rem, 4vw, 6rem) var(--pkg-pad) var(--pkg-pad);
+  border-inline-start: 1px solid var(--pkg-line);
+  flex-direction: column;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.pkg__head {
+  flex: 0 0 auto;
+  text-align: right;
+}
+
+.pkg__head .sec-desc {
+  max-width: 48rem;
+}
+
+.pkg__viewer-stage .swiper-control {
+  --swiper-control-offset: calc(var(--rtl-side-control-offset) - 50px);
+}
+
+.pkg__viewer-stage {
+  position: relative;
+  display: flex;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+/* The flex line gives the slider a definite height, which the wrapper and the
+   slides need before their own full heights can resolve. */
+.pkg__stage {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+}
+
+/* Flex, not grid: a centred grid row sizes to its content, so the image's
+   full-height bound had nothing definite to resolve against and overflowed. */
+.pkg__stage .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* "Your Size" is not a stocked format, so its slot turns the viewer into a lead
+   capture that opens the header contact panel instead of showing shots. */
+.pkg__cta {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: none;
+  padding: clamp(2rem, 3vw, 4rem);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: clamp(1.2rem, 1.6vw, 2rem);
+  text-align: center;
+}
+
+.sec-pkg.is-custom .pkg__cta {
+  display: flex;
+}
+
+.sec-pkg.is-custom .pkg__stage,
+.sec-pkg.is-custom .swiper-control,
+.sec-pkg.is-custom .pkg__thumbs {
+  display: none;
+}
+
+/* Native size only -- the customise artwork is 221-273px tall, so scaling it up
+   would soften it the way the product shots were. */
+.pkg__cta-shot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  max-width: 40%;
+  max-height: 100%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+}
+
+.pkg__cta > :not(.pkg__cta-shot) {
+  position: relative;
+  z-index: 1;
+}
+
+/* The can is the slot's picture until someone shows interest; the pitch then
+   fades in over it rather than sitting there as a wall of text. */
+.pkg__cta-body {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: clamp(1.2rem, 1.6vw, 2rem);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(1.2rem);
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pkg__cta:hover .pkg__cta-shot,
+.pkg__cta:focus-within .pkg__cta-shot {
+  opacity: 0.16;
+}
+
+.pkg__cta:hover .pkg__cta-body,
+.pkg__cta:focus-within .pkg__cta-body {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+/* Nothing hovers on touch, so the pitch is simply always there. */
+@media (hover: none) {
+  .pkg__cta-shot {
+    opacity: 0.16;
+  }
+
+  .pkg__cta-body {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+}
+
+.pkg__cta-title {
+  color: var(--color-text);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.pkg__cta-desc {
+  max-width: 48rem;
+  color: var(--color-sub);
+  line-height: 1.8;
+}
+
+/* Bounded by the slide rather than a fixed size, so the large shots are drawn
+   as big as the stage allows instead of being downscaled to 320px. */
+.pkg__stage img {
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.pkg__load {
+  display: flex;
+  width: 100%;
+  max-width: 70rem;
+  flex-direction: column;
+  gap: clamp(1.6rem, 2vw, 2.4rem);
+}
+
+.pkg__load-scroll {
+  overflow-x: auto;
+}
+
+.pkg__load-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.5rem;
+  text-align: right;
+}
+
+.pkg__load-table th,
+.pkg__load-table td {
+  padding: 1.2rem 1.6rem;
+  border-block-end: 1px solid var(--pkg-line);
+  white-space: nowrap;
+}
+
+.pkg__load-table thead th {
+  background: var(--color-cream);
+  font-weight: 700;
+}
+
+.pkg__load-table tbody th {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.pkg__load-table tbody td {
+  color: var(--color-des);
+}
+
+.pkg__load-table tbody tr:last-child th,
+.pkg__load-table tbody tr:last-child td {
+  border-block-end: 0;
+}
+
+.pkg__load-note {
+  color: var(--color-des);
+  text-align: center;
+}
+
+.pkg__load-note strong {
+  color: var(--color-pri);
+  font-weight: 700;
+}
+
+.pkg__thumbs {
+  display: grid;
+  flex: 0 0 auto;
+  gap: 0.8rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: min(100%, 44rem);
+}
+
+.pkg-thumb {
+  position: relative;
+  display: block;
+  min-width: 0;
+  padding: 0;
+  border: 1px solid var(--pkg-line);
+  aspect-ratio: 1;
+  background: #ffffff;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.pkg-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0.8rem;
+  object-fit: contain;
+}
+
+.pkg-thumb.is-active {
+  border-color: var(--color-text);
+}
+
+/* Every cell draws its own end edges, so the rules run right through the panel
+   and the left-hand ones line up as the divider between the halves. */
+.pkg__browse {
+  min-width: 0;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.pkg__label {
+  padding: clamp(1.6rem, 2vw, 2.8rem) var(--pkg-pad);
+  border-block: 1px solid var(--pkg-line);
+  color: var(--color-text);
+  font-weight: 700;
+  text-align: right;
+}
+
+/* Nothing sits above the first label, so it would draw a half-width rule
+   across the top of the section. */
+.pkg__label:first-child {
+  border-block-start: 0;
+}
+
+.pkg__grid--material .pkg-cell {
+  border-block-end: 0;
+}
+
+.pkg__grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.pkg-cell {
+  position: relative;
+  display: block;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-inline-end: 1px solid var(--pkg-line);
+  border-block-end: 1px solid var(--pkg-line);
+  aspect-ratio: 1;
+  background: #ffffff;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+.pkg-cell img {
+  position: absolute;
+  inset: 0;
+  width: 65%;
+  height: 65%;
+  margin: auto;
+  object-fit: contain;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pkg-cell:nth-child(5n) {
+  border-inline-end: 0;
+}
+
+.pkg-cell.is-last-row {
+  border-block-end: 0;
+}
+
+.pkg-cell.is-active {
+  background: var(--color-cream);
+}
+
+@media all {
+  .pkg-cell:not(.is-active):hover {
+    background: #fafafa;
+  }
+
+  .pkg-cell:hover img {
+    transform: scale(1.08);
+  }
+
+  .pkg-thumb:not(.is-active):hover {
+    border-color: var(--color-sub);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .sec-pkg {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pkg__viewer {
+    border-inline-start: 0;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .pkg__browse {
+    border-block-start: 1px solid var(--pkg-line);
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .pkg__label,
+  .pkg-cell {
+    border-inline-end: 0;
+  }
+
+  .pkg-cell:not(:nth-child(5n)) {
+    border-inline-end: 1px solid var(--pkg-line);
+  }
+
+  .pkg__viewer-stage {
+    min-height: 42svh;
+  }
+
+  /* Stacked, the viewer runs the full width and there is no outer padding for
+     the arrows to sit in, so they come back inside the stage. */
+  .pkg__viewer-stage .swiper-control {
+    --swiper-control-offset: var(--rtl-side-control-offset);
+  }
+
+  .pkg__stage img {
+    max-height: 34svh;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .pkg__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .pkg-cell:not(:nth-child(5n)) {
+    border-inline-end: 0;
+  }
+
+  .pkg-cell:not(:nth-child(4n)) {
+    border-inline-end: 1px solid var(--pkg-line);
+  }
+}
+
+/* FAQ accordion: one answer open at a time, driven by a measured max-height. */
+.sec-faq {
+  --faq-line: var(--color-line);
+  --sec-gutter: clamp(2rem, 3.6vw, 11rem);
+  width: 100%;
+  /* No block-start: the packaging section above already closes that boundary
+     with its own border-block-end, which is also what caps its size grid. */
+  border-block-end: 1px solid var(--faq-line);
+  background: #ffffff;
+}
+
+.sec-faq__head {
+  width: 100%;
+  padding-inline: var(--sec-gutter);
+  text-align: right;
+}
+
+.sec-faq__head .sec-desc {
+  width: min(100%, 120rem);
+  margin-inline-end: auto;
+}
+
+.faq__list {
+  display: flex;
+  margin-top: var(--section-gap);
+  padding-inline: var(--sec-gutter);
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.faq-item {
+  border: 1px solid var(--faq-line);
+  background: #ffffff;
+}
+
+.faq-item__head {
+  margin: 0;
+}
+
+.faq-item__toggle {
+  display: flex;
+  width: 100%;
+  padding: clamp(1.8rem, 2.2vw, 2.8rem) clamp(1.6rem, 2vw, 2.4rem);
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: right;
+}
+
+.faq-item__q {
+  color: var(--color-text);
+  font-weight: 700;
+  line-height: 1.4;
+  transition: color 0.25s ease;
+}
+
+.faq-item.is-open .faq-item__q {
+  color: var(--color-pri);
+}
+
+/* Drawn rather than an asset, so it can inherit the open state's colour. */
+.faq-item__icon {
+  position: relative;
+  display: block;
+  width: 2.2rem;
+  height: 2.2rem;
+  flex: 0 0 auto;
+  color: var(--color-text);
+  transition: color 0.25s ease;
+}
+
+.faq-item__icon::before {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  width: 1rem;
+  height: 1rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  content: "";
+  transform: translate(-50%, -50%) rotate(45deg);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-item.is-open .faq-item__icon {
+  color: var(--color-pri);
+}
+
+.faq-item.is-open .faq-item__icon::before {
+  transform: translate(-50%, -20%) rotate(225deg);
+}
+
+.faq-item__body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-item__a {
+  padding: 0 clamp(1.6rem, 2vw, 2.4rem) clamp(1.8rem, 2.2vw, 2.8rem);
+  color: var(--color-sub);
+  line-height: 1.8;
+  text-align: right;
+}
+
+@media all {
+  .faq-item:not(.is-open) .faq-item__toggle:hover .faq-item__q,
+  .faq-item:not(.is-open) .faq-item__toggle:hover .faq-item__icon {
+    color: var(--color-pri);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .sec-faq {
+    --sec-gutter: clamp(1.8rem, 3.2vw, 3.6rem);
+  }
 }

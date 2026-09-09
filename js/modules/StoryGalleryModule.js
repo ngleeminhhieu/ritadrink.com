@@ -72,7 +72,7 @@ export default function StoryGalleryModule() {
   };
 
   const stopTimers = (photo) => {
-    (timers.get(photo) || []).forEach(window.clearTimeout);
+    (timers.get(photo) || []).forEach((id) => window.clearTimeout(id));
     timers.set(photo, []);
   };
 

@@ -21,6 +21,11 @@ import BrandPopupModule from "./modules/BrandPopupModule.js";
 import AwardsModule from "./modules/AwardsModule.js";
 import HistoryModule from "./modules/HistoryModule.js";
 import StoryGalleryModule from "./modules/StoryGalleryModule.js";
+import ProcessModule from "./modules/ProcessModule.js";
+import FlowModule from "./modules/FlowModule.js";
+import MilestoneModule from "./modules/MilestoneModule.js";
+import PackagingModule from "./modules/PackagingModule.js";
+import FaqModule from "./modules/FaqModule.js";
 
 const initTemplateUtilities = () => {
   document.querySelector(".backToTopJS")?.addEventListener("click", () => {
@@ -133,32 +138,47 @@ const initHeroSlider = () => {
   desktopHero.addEventListener("change", requestHeroResize);
 };
 
+// Run in order but in isolation: the list is long, and one page-specific throw
+// used to take down every module queued after it.
 const init = () => {
-  PreloaderModule();
-  HeaderModule();
-  HeaderActionsModule();
-  MobileModule();
-  MobileSubModule();
-  IntroductionVideoModule();
-  CountUpModule();
-  ExhibitionModule();
-  initHeroSlider();
-  initTemplateUtilities();
-  CertificatesModule();
-  RangeModule();
-  BannerCtaModule();
-  NewsModule();
-  ProductCategoriesModule();
-  CatalogSelectsModule();
-  CatalogFiltersModule();
-  ProductContentModule();
-  ProductRelatedModule();
-  ContactModule();
-  BlogRelatedModule();
-  BrandPopupModule();
-  AwardsModule();
-  HistoryModule();
-  StoryGalleryModule();
+  [
+    PreloaderModule,
+    HeaderModule,
+    HeaderActionsModule,
+    MobileModule,
+    MobileSubModule,
+    IntroductionVideoModule,
+    CountUpModule,
+    ExhibitionModule,
+    initHeroSlider,
+    initTemplateUtilities,
+    CertificatesModule,
+    RangeModule,
+    BannerCtaModule,
+    NewsModule,
+    ProductCategoriesModule,
+    CatalogSelectsModule,
+    CatalogFiltersModule,
+    ProductContentModule,
+    ProductRelatedModule,
+    ContactModule,
+    BlogRelatedModule,
+    BrandPopupModule,
+    AwardsModule,
+    HistoryModule,
+    StoryGalleryModule,
+    ProcessModule,
+    FlowModule,
+    MilestoneModule,
+    PackagingModule,
+    FaqModule,
+  ].forEach((module) => {
+    try {
+      module();
+    } catch (error) {
+      console.error(`${module.name || "module"} failed to start`, error);
+    }
+  });
 };
 
 if (document.readyState === "loading") {
